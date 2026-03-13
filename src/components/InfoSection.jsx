@@ -160,7 +160,7 @@ function InfoSection() {
 
       <footer className="border-t border-gray-200 pt-8">
         <div className="flex flex-col md:flex-row items-center justify-between text-sm text-gray-600">
-          <p>© 2025 QR Generator. All Rights Reserved</p>
+          <p>© 2026 QR Generator. All Rights Reserved</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
           <Link to="/about" className="text-muted-foreground hover:text-foreground text-sm">About</Link>
             <a href="/faq" className="hover:text-purple-600 transition">FAQ</a>

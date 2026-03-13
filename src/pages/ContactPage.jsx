@@ -31,10 +31,11 @@ function ContactPage() {
 
   return (
     <>
-      {/* <Seo
-        title="Contact Us"
-        description="Get in touch with us. Send us your questions, feedback, or suggestions about our QR Code Generator."
-      /> */}
+      <Seo
+        title="Contact QR Gen"
+        description="Contact QR Gen with questions, feedback, bug reports, or partnership inquiries about our QR code generator."
+        path="/contact"
+      />
       <div className="max-w-xl mx-auto">
         <h1 className="text-4xl font-bold tracking-tight text-center mb-4">Contact Us</h1>
         <p className="text-xl text-muted-foreground text-center mb-10">

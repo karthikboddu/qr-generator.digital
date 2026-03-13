@@ -3,6 +3,7 @@ import { useParams } from 'react-router-dom';
 import { Download, Eye, QrCode as QrCodeIcon } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import QRCode from 'qrcode';
+import Seo from '../components/Seo';
 
 function SharedQR() {
   const { qrId } = useParams();
@@ -83,38 +84,54 @@ function SharedQR() {
     }
   };
 
+  const seoElement = (
+    <Seo
+      title={qrData ? `${qrData.type} Shared QR Code` : 'Shared QR Code'}
+      description="View and download a shared QR code."
+      path={`/qr/${qrId}`}
+      robots="noindex,nofollow"
+    />
+  );
 
   if (loading) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-        <div className="text-center">
-          <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-          <p className="text-gray-600">Loading QR code...</p>
+      <>
+        {seoElement}
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
+          <div className="text-center">
+            <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
+            <p className="text-gray-600">Loading QR code...</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   if (!qrData) {
     return (
-      <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-        <div className="text-center">
-          <QrCodeIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-          <h1 className="text-2xl font-bold text-gray-900 mb-2">QR Code Not Found</h1>
-          <p className="text-gray-600">This QR code does not exist or has been deleted.</p>
+      <>
+        {seoElement}
+        <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
+          <div className="text-center">
+            <QrCodeIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
+            <h1 className="text-2xl font-bold text-gray-900 mb-2">QR Code Not Found</h1>
+            <p className="text-gray-600">This QR code does not exist or has been deleted.</p>
+          </div>
         </div>
-      </div>
+      </>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 py-12 px-4">
-      <div className="max-w-2xl mx-auto">
-        <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-          <div className="text-center mb-8">
-            <h1 className="text-3xl font-bold text-gray-900 mb-2">Shared QR Code</h1>
-            <p className="text-gray-600">Scan or download this QR code</p>
-          </div>
+    <>
+      {seoElement}
+      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 py-12 px-4">
+        <div className="max-w-2xl mx-auto">
+          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
+            <div className="text-center mb-8">
+              <h1 className="text-3xl font-bold text-gray-900 mb-2">Shared QR Code</h1>
+              <p className="text-gray-600">Scan or download this QR code</p>
+            </div>
 
           <div className="bg-gray-50 rounded-xl p-8 mb-6">
             <div className="bg-white rounded-lg p-6 inline-block mx-auto">
@@ -159,8 +176,9 @@ function SharedQR() {
             </button>
           </div>
         </div>
+        </div>
       </div>
-    </div>
+    </>
   );
 }
 

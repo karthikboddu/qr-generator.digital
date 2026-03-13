@@ -34,11 +34,26 @@ const faqItems = [
 ];
 
 function FaqPage() {
+  const faqJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: faqItems.map((item) => ({
+      '@type': 'Question',
+      name: item.question,
+      acceptedAnswer: {
+        '@type': 'Answer',
+        text: item.answer,
+      },
+    })),
+  };
+
   return (
     <>
       <Seo
-        title="Frequently Asked Questions"
-        description="Find answers to common questions about our QR Code Generator, including features, usage rights, and data privacy."
+        title="QR Code Generator FAQ"
+        description="Find answers about QR code usage, privacy, downloads, customization, and supported QR types on QR Gen."
+        path="/faq"
+        jsonLd={faqJsonLd}
       />
       <div className="max-w-3xl mx-auto">
         <h1 className="text-4xl font-bold tracking-tight text-center mb-4">Frequently Asked Questions</h1>

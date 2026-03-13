@@ -4,6 +4,7 @@ export const blogPosts = [
     title: 'How to Use QR Codes for Your Business',
     author: 'Jane Doe',
     date: 'July 26, 2025',
+    dateIso: '2025-07-26',
     image: 'https://images.unsplash.com/photo-1634402735134-3956933f4219?q=80&w=2070',
     excerpt: 'QR codes are a powerful tool for connecting the physical and digital worlds. Learn how to leverage them to boost engagement, drive traffic, and enhance your marketing efforts.',
     content: `
@@ -30,6 +31,7 @@ export const blogPosts = [
     title: 'Top 5 Free QR Code Generators (and Why Ours Is the Fastest)',
     author: 'John Smith',
     date: 'July 22, 2025',
+    dateIso: '2025-07-22',
     image: 'https://images.unsplash.com/photo-1593508512255-86ab42a8e620?q=80&w=2078',
     excerpt: 'Looking for the best free QR code generator? We review the top 5 options available online and show you why our tool stands out for its speed, customization, and user-friendly interface.',
     content: `
@@ -59,6 +61,7 @@ export const blogPosts = [
     title: 'How to Create a UPI QR Code for Your Shop',
     author: 'Priya Sharma',
     date: 'July 18, 2025',
+    dateIso: '2025-07-18',
     image: 'https://images.unsplash.com/photo-1627843563095-2df9782789c9?q=80&w=2070',
     excerpt: 'Accepting digital payments is essential for any modern business. This step-by-step guide shows you how to create a custom UPI QR code for your shop using our free generator.',
     content: `

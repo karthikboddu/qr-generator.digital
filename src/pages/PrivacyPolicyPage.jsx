@@ -6,7 +6,8 @@ function PrivacyPolicyPage() {
     <>
       <Seo
         title="Privacy Policy"
-        description="Our commitment to your privacy. Learn how we handle data on our QR Code Generator website."
+        description="Read the QR Gen privacy policy to understand how QR code data, uploaded logos, analytics, and local browser storage are handled."
+        path="/privacy-policy"
       />
       <div className="max-w-3xl mx-auto prose prose-invert prose-p:text-muted-foreground prose-headings:text-foreground prose-a:text-blue-400">
         <h1>Privacy Policy</h1>

@@ -6,8 +6,9 @@ function AboutPage() {
   return (
     <>
       <Seo
-        title="About Us"
-        description="Learn about our mission to provide a free, fast, and feature-rich QR Code Generator for everyone."
+        title="About QR Gen"
+        description="Learn about QR Gen, our privacy-first QR code generator, and how we help people create custom QR codes online for free."
+        path="/about"
       />
       <div className="max-w-4xl mx-auto">
         <h1 className="text-4xl font-bold tracking-tight text-center mb-4">About QR Gen</h1>

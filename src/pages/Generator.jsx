@@ -1,35 +1,59 @@
-import React, { useState, useEffect,useMemo } from 'react';
+import React, { useState, useEffect, useMemo } from 'react';
+import { createEvent } from 'ics';
 import QRCode from 'qrcode';
 import ContentTypeSelector from '../components/ContentTypeSelector';
 import ContentInput from '../components/ContentInput';
 import CustomizeDesign from '../components/CustomizeDesign';
-import QRPreview from '../components/QRPreview';
 import InfoSection from '../components/InfoSection';
 import { supabase } from '../supabaseClient';
 import { useAuth } from '../context/AuthContext';
-import QrGenerator from '../components/QrGenerator';
 import { QR_TYPES } from '../constants';
 import QrCodePreview from '../components/QrCodePreview';
 import { useNavigate } from 'react-router-dom';
+import Seo from '../components/Seo';
+
+const ROUTE_TO_TAB = {
+  'bank-account-qr-generator': 'bank-account',
+  'file-qr-generator': 'file',
+};
+
+function getInitialTab(initialContentType) {
+  if (!initialContentType || initialContentType === 'url') {
+    return 'url';
+  }
+
+  return ROUTE_TO_TAB[initialContentType] || initialContentType.replace(/-qr-generator$/, '');
+}
 
 
 function Generator({ initialContentType = 'url' }) {
-  const [contentType, setContentType] = useState('url');
-  const [content, setContent] = useState('https://');
+  const startingTab = getInitialTab(initialContentType);
+  const [contentType, setContentType] = useState(startingTab);
   const [qrDataURL, setQrDataURL] = useState('');
-  const [activeTab, setActiveTab] = useState(QR_TYPES[0].id);  
+  const [activeTab, setActiveTab] = useState(startingTab);
   const navigate = useNavigate();
 
  // Simple inputs
   const [text, setText] = useState('');
 
   useEffect(() => {
-    setContentType(initialContentType);
+    const nextTab = getInitialTab(initialContentType);
+    setContentType(nextTab);
+    setActiveTab(nextTab);
   }, [initialContentType]);
 
+  const currentQrType = QR_TYPES.find((type) => type.id === activeTab) || QR_TYPES[0];
+  const generatorPath = activeTab === 'url' ? '/' : `/generator/${activeTab}-qr-generator`;
+  const generatorTitle =
+    activeTab === 'url' ? 'Free QR Code Generator' : `${currentQrType.name} QR Code Generator`;
+  const generatorDescription =
+    activeTab === 'url'
+      ? 'Create custom QR codes for URLs, Wi-Fi, UPI, vCard, text, social links, and more with instant downloads and logo support.'
+      : `Create a ${currentQrType.name} QR code online for free. Customize colors, add a logo, and download your QR code instantly.`;
+
   const handleContentTypeSelect = (newContentType) => {
-    console.log('Selected content type:', newContentType);
-    
+    setContentType(newContentType);
+
     if (newContentType === 'url') {
       navigate('/');
     } else {
@@ -164,8 +188,7 @@ function Generator({ initialContentType = 'url' }) {
   const { user } = useAuth();
 
   const generateQR = async (output = 'dataURL') => {
-    console.log('Generating QR with content:', content, 'and customization:', customization);
-    
+    const qrPayload = qrValue || 'https://';
     const options = {
       width: 400,
       margin: 2,
@@ -177,7 +200,7 @@ function Generator({ initialContentType = 'url' }) {
     };
 
     const canvas = document.createElement('canvas');
-    await QRCode.toCanvas(canvas, content || 'https://', options);
+    await QRCode.toCanvas(canvas, qrPayload, options);
     const ctx = canvas.getContext('2d');
 
     if (customization.logoDataURL) {
@@ -210,7 +233,7 @@ function Generator({ initialContentType = 'url' }) {
     };
     updateQR();
     setSavedQrId(null); // Reset saved state on change
-  }, [content, customization, contentType]);
+  }, [qrValue, customization, contentType]);
 
   const handleSave = async () => {
     if (!user) {
@@ -259,58 +282,82 @@ function Generator({ initialContentType = 'url' }) {
     }
   };
 
+  const generatorJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'WebApplication',
+    name: generatorTitle,
+    applicationCategory: 'UtilityApplication',
+    operatingSystem: 'Web',
+    url: `https://qr-generator.digital${generatorPath === '/' ? '' : generatorPath}`,
+    description: generatorDescription,
+    offers: {
+      '@type': 'Offer',
+      price: '0',
+      priceCurrency: 'USD',
+    },
+  };
+
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-      <div className="text-center mb-8 md:mb-12">
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
-          Free Online QR Code Generator
-        </h1>
-        <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-4">
-                No sign-up required. Create and download custom QR codes instantly for URLs, WiFi, UPI, and more.
-        </p>
-      </div>
-
-      <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
-        <div className="space-y-6">
-           <ContentTypeSelector
-            selected={contentType}
-            onSelect={handleContentTypeSelect}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            qrTypes={QR_TYPES}
-          />
-
-          <ContentInput
-            contentType={contentType}
-            value={content}
-            onChange={setContent}
-            qrTypes={QR_TYPES}
-            activeTab={activeTab}
-            setActiveTab={setActiveTab}
-            {...stateProps}
-          /> 
-          {/* <QrGenerator /> */}
-          <CustomizeDesign
-            customization={customization}
-            onChange={setCustomization}
-          />
+    <>
+      <Seo
+        title={generatorTitle}
+        description={generatorDescription}
+        path={generatorPath}
+        jsonLd={generatorJsonLd}
+      />
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="text-center mb-8 md:mb-12">
+          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3 md:mb-4">
+            {activeTab === 'url' ? 'Free Online QR Code Generator' : `${currentQrType.name} QR Code Generator`}
+          </h1>
+          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto px-4">
+            {activeTab === 'url'
+              ? 'No sign-up required. Create and download custom QR codes instantly for URLs, Wi-Fi, UPI, and more.'
+              : `Generate, customize, and download a ${currentQrType.name} QR code in seconds.`}
+          </p>
         </div>
 
-        <div className="lg:sticky lg:top-8 h-fit">
-          <QrCodePreview
-            qrDataURL={qrDataURL}
-            value={qrValue}
-            content={content}
-            customization={customization}
-            onSave={handleSave}
-            isSaving={isSaving}
-            savedQrId={savedQrId}
-          />
-        </div>
-      </div>
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6 md:gap-8 mb-12 md:mb-16">
+          <div className="space-y-6">
+             <ContentTypeSelector
+              selected={contentType}
+              onSelect={handleContentTypeSelect}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              qrTypes={QR_TYPES}
+            />
 
-      <InfoSection />
-    </div>
+            <ContentInput
+              contentType={contentType}
+              value={qrValue}
+              onChange={() => {}}
+              qrTypes={QR_TYPES}
+              activeTab={activeTab}
+              setActiveTab={setActiveTab}
+              {...stateProps}
+            />
+            <CustomizeDesign
+              customization={customization}
+              onChange={setCustomization}
+            />
+          </div>
+
+          <div className="lg:sticky lg:top-8 h-fit">
+            <QrCodePreview
+              qrDataURL={qrDataURL}
+              value={qrValue}
+              customization={customization}
+              activeTab={activeTab}
+              onSave={handleSave}
+              isSaving={isSaving}
+              savedQrId={savedQrId}
+            />
+          </div>
+        </div>
+
+        <InfoSection />
+      </div>
+    </>
   );
 }
 

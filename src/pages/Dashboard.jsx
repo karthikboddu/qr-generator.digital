@@ -1,7 +1,8 @@
 import React, { useState, useEffect } from 'react';
-import { QrCode, Eye, Share2, TrendingUp, Copy, Check } from 'lucide-react';
+import { QrCode, Eye, Share2, TrendingUp, Check } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import { useAuth } from '../context/AuthContext';
+import Seo from '../components/Seo';
 
 function Dashboard() {
   const [qrHistory, setQrHistory] = useState([]);
@@ -73,21 +74,35 @@ function Dashboard() {
       day: 'numeric'
     });
   };
+
+  const seoElement = (
+    <Seo
+      title="Dashboard"
+      description="Manage saved QR codes, scan counts, and share links in your QR Gen dashboard."
+      path="/dashboard"
+      robots="noindex,nofollow"
+    />
+  );
   
   if (loading) {
     return (
-      <div className="text-center py-20">
-        <div className="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
-      </div>
+      <>
+        {seoElement}
+        <div className="text-center py-20">
+          <div className="w-12 h-12 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto"></div>
+        </div>
+      </>
     );
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-      <div className="mb-8">
-        <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
-        <p className="text-gray-600">Track your QR code performance and analytics</p>
-      </div>
+    <>
+      {seoElement}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
+        <div className="mb-8">
+          <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-2">Dashboard</h1>
+          <p className="text-gray-600">Track your QR code performance and analytics</p>
+        </div>
 
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
         <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
@@ -181,7 +196,8 @@ function Dashboard() {
           </div>
         )}
       </div>
-    </div>
+      </div>
+    </>
   );
 }
 

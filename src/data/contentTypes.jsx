@@ -18,6 +18,6 @@ export const contentTypes = [
   { id: 'twitter-qr-generator', label: 'Twitter', icon: Twitter, description: 'Generate a QR code for a Twitter profile.' },
   { id: 'instagram-qr-generator', label: 'Instagram', icon: Instagram, description: 'Generate a QR code for an Instagram profile.' },
   { id: 'youtube-qr-generator', label: 'YouTube', icon: Youtube, description: 'Generate a QR code for a YouTube channel or video.' },
-  { id: 'fileurl-qr-generator', label: 'File URL', icon: FileText, description: 'Generate a QR code to link to a downloadable file.' }
+  { id: 'file-qr-generator', label: 'File URL', icon: FileText, description: 'Generate a QR code to link to a downloadable file.' }
 
 ];

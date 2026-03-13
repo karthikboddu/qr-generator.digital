@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { BrowserRouter as Router, Routes, Route, Navigate } from 'react-router-dom';
 import { AuthProvider, useAuth } from './context/AuthContext';
 import Login from './pages/Login';
@@ -17,6 +17,7 @@ import BlogPost from './pages/BlogPost';
 import NotFound from './pages/NotFound';
 import GeneratorPage from './pages/GeneratorPage';
 import MainLayout from './layouts/MainLayout';
+import { trackSiteVisit } from './lib/trackSiteVisit';
 
 function PrivateRoute({ children }) {
   const { user } = useAuth();
@@ -110,6 +111,15 @@ function AppRoutes() {
             </>
         }
       />
+      <Route
+        path="*"
+        element={
+          <>
+            <Header />
+            <NotFound />
+          </>
+        }
+      />
 
       {/* This will only be hit if no other route matches */}
     </Routes>
@@ -117,6 +127,10 @@ function AppRoutes() {
 }
 
 function App() {
+  useEffect(() => {
+    trackSiteVisit();
+  }, []);
+
   return (
     <Router>
       <AuthProvider>
