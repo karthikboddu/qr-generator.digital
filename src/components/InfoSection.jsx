@@ -2,8 +2,95 @@ import React, { useState } from 'react';
 import { Edit, Palette, Download, Share2, ChevronDown } from 'lucide-react';
 import { Link } from 'react-router-dom';
 
-function InfoSection() {
+const guideContent = {
+  url: {
+    title: 'When to Use a URL QR Code',
+    intro: 'URL QR codes are best for sending visitors straight from print to web. They work well on posters, product packaging, menus, flyers, and business cards where typing a link would be slow or error-prone.',
+    useCases: [
+      'Send customers to a landing page, store, menu, or campaign URL.',
+      'Share onboarding docs, event registration links, or product manuals.',
+      'Connect offline marketing materials to measurable digital pages.',
+    ],
+    tips: [
+      'Use a short, clean destination URL when possible.',
+      'Test the final link on both Android and iPhone before printing.',
+      'Keep strong contrast between foreground and background for faster scans.',
+    ],
+  },
+  wifi: {
+    title: 'How Wi-Fi QR Codes Help',
+    intro: 'A Wi-Fi QR code lets guests join your network without manually typing a password. This is especially useful for cafes, offices, clinics, salons, events, and home guest networks.',
+    useCases: [
+      'Display guest Wi-Fi access at reception desks and tables.',
+      'Reduce support questions from visitors who struggle with passwords.',
+      'Create a cleaner check-in experience at events and waiting areas.',
+    ],
+    tips: [
+      'Double-check the SSID, password, and encryption type before downloading.',
+      'Use large print placement so the code is easy to scan from standing distance.',
+      'Update the printed code if your guest password changes.',
+    ],
+  },
+  upi: {
+    title: 'Why UPI QR Codes Matter',
+    intro: 'UPI QR codes are useful for small businesses, freelancers, market stalls, and service professionals who want fast, low-friction digital payments. A clear payment QR can reduce queues and improve checkout speed.',
+    useCases: [
+      'Accept payments at a shop counter, pop-up stall, or delivery desk.',
+      'Share a reusable payment code in invoices and printed bills.',
+      'Collect event or class fees with a simple scan-and-pay experience.',
+    ],
+    tips: [
+      'Verify the UPI ID and payee name carefully before publishing.',
+      'Avoid over-styling payment QR codes if they will be printed in small sizes.',
+      'Print one laminated version for the counter and keep a digital backup.',
+    ],
+  },
+  vcard: {
+    title: 'Why Use a vCard QR Code',
+    intro: 'vCard QR codes act like digital business cards. They help people save your contact details instantly without spelling mistakes, which is useful for networking, events, consulting, and sales teams.',
+    useCases: [
+      'Add your contact card to conference badges or brochures.',
+      'Share staff details on store counters, packaging, or welcome kits.',
+      'Replace printed business cards with a reusable digital contact card.',
+    ],
+    tips: [
+      'Include only the details you really want shared publicly.',
+      'Test saving the contact on multiple phone brands before rollout.',
+      'Keep the code large enough if you add a logo in the middle.',
+    ],
+  },
+  event: {
+    title: 'Event QR Codes for Better Attendance',
+    intro: 'Event QR codes are useful when you want attendees to save dates quickly without typing. They work well for workshops, webinars, conferences, community events, and classes.',
+    useCases: [
+      'Add event details to posters, invites, and booth signage.',
+      'Help guests save the schedule directly to their calendar.',
+      'Reduce missed events by making the invite easier to act on.',
+    ],
+    tips: [
+      'Check start and end times carefully, including timezone assumptions.',
+      'Add a clear title so the saved calendar entry is easy to recognize.',
+      'Test the exported event on the calendar apps your audience commonly uses.',
+    ],
+  },
+};
+
+function InfoSection({ activeTab = 'url', currentQrTypeName = 'QR code' }) {
   const [openFaq, setOpenFaq] = useState(null);
+  const activeGuide = guideContent[activeTab] || {
+    title: `Best Uses for ${currentQrTypeName} QR Codes`,
+    intro: `${currentQrTypeName} QR codes work best when you want to reduce friction between discovery and action. The clearer the destination and the simpler the scan experience, the better the conversion rate.`,
+    useCases: [
+      `Use ${currentQrTypeName} QR codes on print materials, packaging, signage, or support documentation.`,
+      `Help customers move from an offline touchpoint to the exact action you want them to take.`,
+      `Create a more convenient sharing experience than asking people to type text manually.`,
+    ],
+    tips: [
+      'Use strong visual contrast and enough white space around the code.',
+      'Test your final design on more than one device before publishing it widely.',
+      'Keep the destination clear so people know what will happen after scanning.',
+    ],
+  };
 
   const faqs = [
     {
@@ -26,6 +113,42 @@ function InfoSection() {
 
   return (
     <div className="space-y-12 md:space-y-16">
+      <section className="bg-white rounded-2xl border border-gray-100 shadow-sm p-6 md:p-10">
+        <div className="max-w-4xl mx-auto">
+          <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4">
+            {activeGuide.title}
+          </h2>
+          <p className="text-gray-600 text-center max-w-3xl mx-auto mb-10">
+            {activeGuide.intro}
+          </p>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Common Use Cases</h3>
+              <ul className="space-y-3 text-gray-600">
+                {activeGuide.useCases.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 rounded-full bg-purple-600 flex-shrink-0"></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+            <div>
+              <h3 className="text-xl font-semibold text-gray-900 mb-3">Best Practice Tips</h3>
+              <ul className="space-y-3 text-gray-600">
+                {activeGuide.tips.map((item) => (
+                  <li key={item} className="flex gap-3">
+                    <span className="mt-2 h-2 w-2 rounded-full bg-blue-600 flex-shrink-0"></span>
+                    <span>{item}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </div>
+        </div>
+      </section>
+
       <div>
         <h2 className="text-3xl md:text-4xl font-bold text-gray-900 text-center mb-4">
           Get Your QR Code in 3 Simple Steps
@@ -162,9 +285,9 @@ function InfoSection() {
         <div className="flex flex-col md:flex-row items-center justify-between text-sm text-gray-600">
           <p>© 2026 QR Generator. All Rights Reserved</p>
           <div className="flex space-x-6 mt-4 md:mt-0">
-          <Link to="/about" className="text-muted-foreground hover:text-foreground text-sm">About</Link>
+            <Link to="/about" className="text-muted-foreground hover:text-foreground text-sm">About</Link>
             <a href="/faq" className="hover:text-purple-600 transition">FAQ</a>
-            <a href="/privacy-policy" className="hover:text-purple-600 transition">Contact</a>
+            <a href="/contact" className="hover:text-purple-600 transition">Contact</a>
           </div>
         </div>
       </footer>

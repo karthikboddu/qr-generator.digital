@@ -355,7 +355,7 @@ function Generator({ initialContentType = 'url' }) {
           </div>
         </div>
 
-        <InfoSection />
+        <InfoSection activeTab={activeTab} currentQrTypeName={currentQrType.name} />
       </div>
     </>
   );

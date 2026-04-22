@@ -137,7 +137,8 @@ function QRPreview({ qrDataURL, content, customization, onSave, isSaving, savedQ
 
         <button
           onClick={handleDownloadMultiResolution}
-          className="w-full flex items-center justify-center px-6 py-3 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-900 transition"
+          disabled={!qrDataURL}
+          className="w-full flex items-center justify-center px-6 py-3 bg-gray-800 text-white rounded-lg font-medium hover:bg-gray-900 transition disabled:opacity-50 disabled:cursor-not-allowed"
         >
           <Download className="w-5 h-5 mr-2" />
           Download All (ZIP)

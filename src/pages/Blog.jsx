@@ -39,6 +39,27 @@ function Blog() {
           </p>
         </div>
 
+        <div className="grid gap-6 md:grid-cols-3 mb-10">
+          <div className="rounded-2xl border border-gray-100 bg-white p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Practical Guides</h2>
+            <p className="text-gray-600">
+              Learn when to use URL, Wi-Fi, UPI, and contact QR codes in real business and everyday situations.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-gray-100 bg-white p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Design Best Practices</h2>
+            <p className="text-gray-600">
+              We publish tips on sizing, contrast, logo placement, and print readiness so your QR codes stay scannable.
+            </p>
+          </div>
+          <div className="rounded-2xl border border-gray-100 bg-white p-6">
+            <h2 className="text-xl font-semibold text-gray-900 mb-2">Use-Case Ideas</h2>
+            <p className="text-gray-600">
+              Explore examples for shops, events, menus, packaging, business cards, onboarding, and digital payments.
+            </p>
+          </div>
+        </div>
+
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {blogPosts.map((post) => (
             <Link to={`/blog/${post.slug}`} key={post.slug} className="group block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1">
