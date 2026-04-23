@@ -1,6 +1,8 @@
 import React from 'react';
 import Seo from '../components/Seo';
 import Accordion from '../components/Accordion';
+import { HelpCircle, Sparkles, MessageCircle, ArrowRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
 
 const faqItems = [
   {
@@ -55,16 +57,67 @@ function FaqPage() {
         path="/faq"
         jsonLd={faqJsonLd}
       />
-      <div className="max-w-3xl mx-auto">
-        <h1 className="text-4xl font-bold tracking-tight text-center mb-4">Frequently Asked Questions</h1>
-        <p className="text-xl text-muted-foreground text-center mb-10">
-          Have questions? We've got answers.
-        </p>
+      
+      <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '60px 20px' }}>
+        {/* Glow blobs */}
+        <div style={{
+          position: 'absolute', top: '10%', right: '5%',
+          width: '600px', height: '400px',
+          background: 'radial-gradient(ellipse at center, rgba(99, 102, 241, 0.1) 0%, transparent 70%)',
+          pointerEvents: 'none',
+          zIndex: 0
+        }} />
 
-        <div className="space-y-4">
-          {faqItems.map((item, index) => (
-            <Accordion key={index} question={item.question} answer={item.answer} />
-          ))}
+        <div className="animate-fadeInUp relative z-10 max-w-3xl mx-auto">
+          <div style={{ textAlign: 'center', marginBottom: '56px' }}>
+            <div className="badge badge-purple" style={{ marginBottom: '16px' }}>
+              <Sparkles size={10} />
+              Support Center
+            </div>
+            <h1 style={{ 
+              fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: 'clamp(32px, 5vw, 48px)', 
+              color: 'var(--text-primary)', margin: '0 0 16px', letterSpacing: '-0.03em' 
+            }}>
+              Frequently Asked Questions
+            </h1>
+            <p style={{ 
+              color: 'var(--text-secondary)', fontSize: '17px', margin: '0 auto',
+              lineHeight: 1.6
+            }}>
+              Everything you need to know about our QR generator.
+            </p>
+          </div>
+
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '64px' }}>
+            {faqItems.map((item, index) => (
+              <Accordion key={index} question={item.question} answer={item.answer} />
+            ))}
+          </div>
+
+          <div className="dark-card" style={{ 
+            padding: '40px', textAlign: 'center', 
+            background: 'linear-gradient(135deg, rgba(99, 102, 241, 0.08), rgba(139, 92, 246, 0.08))',
+            border: '1px solid var(--border-active)'
+          }}>
+            <div style={{ 
+              width: 56, height: 56, borderRadius: '16px', 
+              background: 'rgba(99, 102, 241, 0.1)', 
+              display: 'flex', alignItems: 'center', justifyContent: 'center',
+              margin: '0 auto 20px', color: 'var(--accent-primary)'
+            }}>
+              <HelpCircle size={28} />
+            </div>
+            <h2 style={{ fontFamily: 'Outfit', fontSize: '24px', fontWeight: 700, color: 'var(--text-primary)', marginBottom: '12px' }}>
+              Still have questions?
+            </h2>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '15px', marginBottom: '28px', maxWidth: '400px', margin: '0 auto 28px' }}>
+              Can't find the answer you're looking for? Please reach out to our friendly team.
+            </p>
+            <Link to="/contact" className="btn-primary" style={{ textDecoration: 'none' }}>
+              <span>Contact Support</span>
+              <MessageCircle size={18} />
+            </Link>
+          </div>
         </div>
       </div>
     </>

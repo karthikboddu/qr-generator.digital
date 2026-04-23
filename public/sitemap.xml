@@ -1,41 +1,56 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <!-- Core Pages -->
   <url>
     <loc>https://qr-generator.digital/</loc>
-    <lastmod>2026-03-13</lastmod>
-    <changefreq>weekly</changefreq>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>daily</changefreq>
     <priority>1.00</priority>
   </url>
   <url>
+    <loc>https://qr-generator.digital/templates</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/inspiration</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.90</priority>
+  </url>
+  <url>
     <loc>https://qr-generator.digital/about</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/faq</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.80</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/contact</loc>
-    <lastmod>2026-03-13</lastmod>
-    <changefreq>yearly</changefreq>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/privacy-policy</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>yearly</changefreq>
     <priority>0.60</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/blog</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>weekly</changefreq>
     <priority>0.80</priority>
   </url>
+
+  <!-- Blog Posts -->
   <url>
     <loc>https://qr-generator.digital/blog/how-to-use-qr-codes-for-your-business</loc>
     <lastmod>2025-07-26</lastmod>
@@ -55,99 +70,223 @@
     <priority>0.70</priority>
   </url>
   <url>
-    <loc>https://qr-generator.digital/generator/wifi-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <loc>https://qr-generator.digital/blog/how-restaurants-use-qr-menus</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/best-qr-code-colors-for-scanning</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/qr-codes-for-wedding-invitations</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/how-to-track-qr-scans</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+
+  <!-- Specialized Generator Landing Pages (SEO Templates) -->
+  <url>
+    <loc>https://qr-generator.digital/generator/restaurant-menu-qr-code</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/wedding-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/instagram-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/digital-business-card-qr</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/whatsapp-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/wifi-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/payment-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/resume-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/event-ticket-qr-code</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/social-media-hub-qr</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.85</priority>
+  </url>
+
+  <!-- Content Type Specific Generators -->
+  <url>
+    <loc>https://qr-generator.digital/generator/url-qr-generator</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/text-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/email-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/phone-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/sms-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://qr-generator.digital/generator/whatsapp-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/vcard-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/map-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/bank-account-qr-generator</loc>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/upi-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/event-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/crypto-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/facebook-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/twitter-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.70</priority>
-  </url>
-  <url>
-    <loc>https://qr-generator.digital/generator/instagram-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/youtube-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/file-qr-generator</loc>
-    <lastmod>2026-03-13</lastmod>
+    <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.60</priority>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/dynamic-qr-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/social-hub-qr-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/menu-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/google-review-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/amazon-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/shopify-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/generator/buy-now-qr-code-generator</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.75</priority>
   </url>
 </urlset>

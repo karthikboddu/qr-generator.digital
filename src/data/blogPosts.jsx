@@ -92,4 +92,117 @@ export const blogPosts = [
       <p>That's it! You're now ready to accept fast, easy, and secure digital payments at your shop.</p>
     `,
   },
+  {
+    slug: 'how-restaurants-use-qr-menus',
+    title: 'How Restaurants Use QR Menus to Boost Sales and Safety',
+    author: 'Chef Alex',
+    date: 'April 23, 2026',
+    dateIso: '2026-04-23',
+    image: 'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?q=80&w=2070',
+    excerpt: 'QR menus are more than just a contactless alternative. Discover how modern restaurants are using dynamic QR codes to increase order values, update menus instantly, and collect customer feedback.',
+    content: `
+      <p>The restaurant industry has undergone a massive digital transformation, and at the center of it is the <strong>QR code menu</strong>. Initially adopted as a touchless safety measure, QR menus have evolved into powerful tools that drive sales, reduce printing costs, and improve the overall dining experience.</p>
+
+      <h2>1. Instant Menu Updates Without Printing Costs</h2>
+      <p>One of the biggest pain points for restaurant owners is the cost and time associated with reprinting menus. Whether you're changing seasonal items, updating prices due to inflation, or just 86'ing a sold-out dish, paper menus are restrictive. By using a <strong>Dynamic PDF Menu QR Code</strong>, you can swap out the PDF file in the backend at any time. The physical QR code on the table remains exactly the same, but the digital menu updates instantly.</p>
+
+      <h2>2. Upselling with High-Quality Visuals</h2>
+      <p>A digital menu isn't restricted by the size of a piece of paper. Restaurants are using QR menus to link to highly visual, mobile-optimized landing pages. When customers see a mouth-watering, high-resolution image of your signature dessert or specialty cocktail, they are significantly more likely to order it. Studies show that visual digital menus can increase average ticket sizes by up to 15%.</p>
+
+      <h2>3. Seamless Table-Side Ordering and Payments</h2>
+      <p>Long wait times for the check can ruin an otherwise perfect dining experience. Many restaurants are integrating their QR codes with their Point of Sale (POS) systems. Guests can scan the code to not only view the menu but also order additional drinks and pay their bill directly from their phones via Apple Pay or UPI, turning tables faster and increasing staff efficiency.</p>
+
+      <h2>4. Gathering Instant Customer Feedback and Reviews</h2>
+      <p>Why wait for a Yelp review when you can catch feedback before the customer even leaves the building? By placing a "Review Us" QR code at the bottom of the receipt or on the table tent, restaurants can direct happy diners straight to their Google Business profile. This is an incredible strategy for local SEO and building online reputation.</p>
+    `,
+  },
+  {
+    slug: 'best-qr-code-colors-for-scanning',
+    title: 'Best QR Code Colors for Maximum Scannability',
+    author: 'Sarah Design',
+    date: 'April 20, 2026',
+    dateIso: '2026-04-20',
+    image: 'https://images.unsplash.com/photo-1557682250-33bd709cbe85?q=80&w=2029',
+    excerpt: 'Want to brand your QR codes but afraid they won\'t scan? Learn the scientific rules of QR contrast, which colors work best, and which combinations to avoid at all costs.',
+    content: `
+      <p>Gone are the days when QR codes had to be strictly black and white. Today, brands want their QR codes to match their visual identity. However, changing the colors of a QR code introduces a major risk: <strong>unscannability</strong>. If the smartphone camera can't distinguish the code from the background, the campaign fails. Here is the ultimate guide to choosing the best QR code colors.</p>
+
+      <h2>The Golden Rule: High Contrast</h2>
+      <p>A QR code scanner reads the contrast between the dark elements (the data modules) and the light elements (the background). The golden rule of QR design is to always maintain a high contrast ratio. As a standard practice, you should aim for a minimum of 40% contrast difference between the foreground and background colors.</p>
+
+      <h2>1. Always Keep the Foreground Darker</h2>
+      <p>Most QR scanners are programmed to look for dark squares on a light background. If you invert this (e.g., a white QR code on a black background), many older smartphone cameras and third-party scanning apps will fail to read it. Always choose a dark hue for the QR pattern itself.</p>
+
+      <h2>2. Safe Color Combinations</h2>
+      <p>If you want to move away from black, here are some highly reliable foreground colors when paired with a white or very pale background:</p>
+      <ul>
+        <li><strong>Navy Blue:</strong> Professional, trustworthy, and scans almost as easily as black.</li>
+        <li><strong>Dark Forest Green:</strong> Great for eco-friendly brands.</li>
+        <li><strong>Deep Burgundy or Crimson:</strong> Excellent for food and beverage brands.</li>
+        <li><strong>Dark Purple:</strong> Adds a premium, luxurious feel.</li>
+      </ul>
+
+      <h2>3. Colors to Avoid</h2>
+      <p>Avoid using pastel or light colors for the QR pattern (e.g., yellow, light blue, lime green, or pink). Even if placed on a white background, the camera will struggle to capture the edges of the modules. Furthermore, never use a complex gradient or a busy image as the background behind the QR code itself.</p>
+
+      <h2>4. The "Quiet Zone" is Non-Negotiable</h2>
+      <p>The Quiet Zone is the blank margin around the QR code. Regardless of what color your background is, ensure this margin is completely clear of text, graphics, or borders. Without a clear Quiet Zone, the scanner cannot locate the three large positioning squares.</p>
+    `,
+  },
+  {
+    slug: 'qr-codes-for-wedding-invitations',
+    title: 'How to Use QR Codes for Wedding Invitations and RSVPs',
+    author: 'Emma Events',
+    date: 'April 15, 2026',
+    dateIso: '2026-04-15',
+    image: 'https://images.unsplash.com/photo-1511285560929-80b456fea0bc?q=80&w=2069',
+    excerpt: 'Modernize your wedding planning with QR codes. Learn how couples are using them to simplify RSVPs, share venue directions, and collect photos from guests.',
+    content: `
+      <p>Planning a wedding involves managing hundreds of moving parts, but collecting RSVPs and keeping guests informed shouldn't be the hardest part. Modern couples are turning to <strong>QR codes on wedding invitations</strong> to streamline communication, save money on postage, and add a high-tech touch to their big day.</p>
+
+      <h2>1. The Frictionless Digital RSVP</h2>
+      <p>Traditionally, couples include a physical RSVP card with a stamped return envelope. This is expensive, and cards often get lost in the mail. By generating a <strong>URL QR Code</strong> that links directly to your wedding website's RSVP form (like The Knot or Zola), guests simply point their phone camera at the invitation and confirm their attendance in seconds.</p>
+
+      <h2>2. Sharing Venue Locations and Maps</h2>
+      <p>Is your reception at a hard-to-find barn or a hidden garden? Text-based directions can be confusing. Generate a <strong>Map QR Code</strong>. When scanned, it instantly opens the exact GPS coordinates in the guest's Google Maps or Apple Maps app, allowing them to start turn-by-turn navigation immediately.</p>
+
+      <h2>3. The Ultimate Digital Wedding Itinerary</h2>
+      <p>If you're hosting a multi-day event (welcome drinks, the ceremony, the reception, the morning-after brunch), keeping guests updated is crucial. You can create a <strong>Social Hub QR</strong> or a Link-in-Bio style landing page that acts as the central hub for the weekend. Include links to hotel blocks, dress codes, and the full schedule.</p>
+
+      <h2>4. Collecting Guest Photos</h2>
+      <p>You can't be everywhere at once on your wedding day. Create a QR code that links to a shared Google Drive, Dropbox folder, or a dedicated wedding photo app. Place this QR code on table tents at the reception, encouraging guests to upload all the candid photos and videos they take throughout the night.</p>
+
+      <h2>Design Tip: Keep it Elegant</h2>
+      <p>A QR code doesn't have to look like a barcode from a supermarket. Use our generator to soften the edges with rounded corners, change the color to match your wedding palette (just ensure it's a dark color on a light background), and even place a monogram or a heart icon in the center.</p>
+    `,
+  },
+  {
+    slug: 'how-to-track-qr-scans',
+    title: 'How to Track QR Code Scans: A Complete Analytics Guide',
+    author: 'Mark Metrics',
+    date: 'April 10, 2026',
+    dateIso: '2026-04-10',
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?q=80&w=2070',
+    excerpt: 'Stop guessing if your marketing is working. Learn the difference between static and dynamic QR codes, and how to track scans, locations, and user devices in real-time.',
+    content: `
+      <p>Printing a QR code on a billboard, direct mailer, or product packaging is only half the battle. If you aren't tracking how many people scan it, you have no idea if your marketing campaign is actually yielding a return on investment (ROI). Here is the complete guide to <strong>QR code tracking and analytics</strong>.</p>
+
+      <h2>Static vs. Dynamic QR Codes</h2>
+      <p>The most important concept to understand is the difference between static and dynamic codes. A <strong>Static QR Code</strong> directly encodes the final destination (like "www.yourwebsite.com") into the image pattern. Because there is no intermediary server, <em>static QR codes cannot be tracked</em> by the generator.</p>
+
+      <p>A <strong>Dynamic QR Code</strong>, however, encodes a short tracking URL (e.g., "qr-gen.digital/r/123"). When a user scans the code, they hit our servers for a fraction of a second, we log the scan data, and then we instantly redirect them to your final destination. <em>To track analytics, you must generate a Dynamic QR code.</em></p>
+
+      <h2>What Data Can You Track?</h2>
+      <p>When you use our Dynamic QR generator, our analytics dashboard provides a wealth of actionable data:</p>
+      <ul>
+        <li><strong>Total Scans vs. Unique Scans:</strong> See how many total times the code was scanned, and how many unique individuals scanned it.</li>
+        <li><strong>Time and Date:</strong> Identify peak scanning hours. Do people scan your coffee shop flyer more in the morning or evening?</li>
+        <li><strong>Geographic Location:</strong> Discover which cities or neighborhoods are engaging most with your printed materials. (Note: This is based on IP address routing, which provides regional data, not precise GPS).</li>
+        <li><strong>Device OS:</strong> See if your audience uses iOS or Android, which is crucial if you are linking to an app download.</li>
+      </ul>
+
+      <h2>A/B Testing with UTM Parameters</h2>
+      <p>For advanced marketers, combine Dynamic QR codes with Google Analytics UTM parameters. If you place a QR code on a flyer and another on a poster, use the same base URL but different UTM tags (e.g., \`?utm_source=qr&utm_medium=flyer\`). Then, use our dashboard to see total scans, and check your Google Analytics to see what those users actually did once they reached your website.</p>
+    `,
+  }
 ];

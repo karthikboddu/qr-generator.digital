@@ -1,3 +1,10 @@
 User-agent: *
 Allow: /
+
+# Sitemap
 Sitemap: https://qr-generator.digital/sitemap.xml
+
+# Disallow admin/dashboard areas
+Disallow: /dashboard
+Disallow: /login
+Disallow: /register

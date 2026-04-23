@@ -1,12 +1,35 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { Upload, FileText, Check, Loader } from 'lucide-react';
+import { supabase } from '../supabaseClient';
+import { useAuth } from '../context/AuthContext';
 
-const SimpleInput = ({ value, onChange, placeholder, type = "text" }) => (
+const inputStyle = {
+  width: '100%',
+  padding: '12px 16px',
+  background: 'rgba(255, 255, 255, 0.04)',
+  border: '1px solid rgba(255, 255, 255, 0.08)',
+  borderRadius: '10px',
+  color: '#f0f0f8',
+  fontFamily: 'Inter, sans-serif',
+  fontSize: '14px',
+  transition: 'all 0.2s',
+  outline: 'none',
+};
+
+const inputFocus = {
+  borderColor: '#6366f1',
+  background: 'rgba(99, 102, 241, 0.05)',
+  boxShadow: '0 0 0 3px rgba(99, 102, 241, 0.1)',
+};
+
+const SimpleInput = ({ value, onChange, placeholder, type = 'text' }) => (
   <input
     type={type}
     value={value}
     onChange={(e) => onChange(e.target.value)}
     placeholder={placeholder}
-    className="w-full p-3 bg-input border border-border rounded-md focus:ring-2 focus:ring-ring focus:outline-none transition-shadow"
+    className="dark-input"
+    style={{ '--placeholder-color': 'var(--text-muted)' }}
   />
 );
 
@@ -15,109 +38,254 @@ const TextAreaInput = ({ value, onChange, placeholder }) => (
     value={value}
     onChange={(e) => onChange(e.target.value)}
     placeholder={placeholder}
-    className="w-full min-h-[100px] p-3 bg-input border border-border rounded-md focus:ring-2 focus:ring-ring focus:outline-none transition-shadow"
+    className="dark-textarea"
+    rows={4}
   />
 );
 
+const LabeledInput = ({ label, children }) => (
+  <div>
+    <label className="form-label">{label}</label>
+    {children}
+  </div>
+);
+
 const WifiInput = ({ ssid, setSsid, password, setPassword, encryption, setEncryption }) => (
-  <div className="space-y-3">
-    <SimpleInput value={ssid} onChange={setSsid} placeholder="Network Name / SSID" />
-    <SimpleInput type="password" value={password} onChange={setPassword} placeholder="Password" />
-    <select value={encryption} onChange={e => setEncryption(e.target.value)} className="w-full p-3 bg-input border rounded-md focus:ring-2 focus:ring-ring focus:outline-none appearance-none">
-      <option value="WPA">WPA/WPA2</option>
-      <option value="WEP">WEP</option>
-      <option value="nopass">None</option>
-    </select>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <LabeledInput label="Network Name (SSID)">
+      <SimpleInput value={ssid} onChange={setSsid} placeholder="MyWiFiNetwork" />
+    </LabeledInput>
+    <LabeledInput label="Password">
+      <SimpleInput type="password" value={password} onChange={setPassword} placeholder="••••••••" />
+    </LabeledInput>
+    <LabeledInput label="Security Type">
+      <select value={encryption} onChange={e => setEncryption(e.target.value)} className="dark-select">
+        <option value="WPA">WPA / WPA2</option>
+        <option value="WEP">WEP</option>
+        <option value="nopass">None</option>
+      </select>
+    </LabeledInput>
   </div>
 );
 
 const VCardInput = ({ name, setName, phone, setPhone, email, setEmail }) => (
-  <div className="space-y-3">
-    <SimpleInput value={name} onChange={setName} placeholder="Name" />
-    <SimpleInput type="tel" value={phone} onChange={setPhone} placeholder="Phone" />
-    <SimpleInput type="email" value={email} onChange={setEmail} placeholder="Email" />
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <LabeledInput label="Full Name">
+      <SimpleInput value={name} onChange={setName} placeholder="John Doe" />
+    </LabeledInput>
+    <LabeledInput label="Phone Number">
+      <SimpleInput type="tel" value={phone} onChange={setPhone} placeholder="+1 234 567 8900" />
+    </LabeledInput>
+    <LabeledInput label="Email Address">
+      <SimpleInput type="email" value={email} onChange={setEmail} placeholder="john@example.com" />
+    </LabeledInput>
   </div>
 );
 
 const SmsInput = ({ to, setTo, body, setBody }) => (
-  <div className="space-y-3">
-    <SimpleInput type="tel" value={to} onChange={setTo} placeholder="Phone Number" />
-    <TextAreaInput value={body} onChange={setBody} placeholder="Message" />
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <LabeledInput label="Phone Number">
+      <SimpleInput type="tel" value={to} onChange={setTo} placeholder="+1 234 567 8900" />
+    </LabeledInput>
+    <LabeledInput label="Message">
+      <TextAreaInput value={body} onChange={setBody} placeholder="Your message..." />
+    </LabeledInput>
   </div>
 );
 
 const WhatsappInput = ({ to, setTo, body, setBody }) => (
-  <div className="space-y-3">
-    <SimpleInput type="tel" value={to} onChange={setTo} placeholder="Phone Number (with country code)" />
-    <TextAreaInput value={body} onChange={setBody} placeholder="Initial Message (optional)" />
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <LabeledInput label="Phone Number (with country code)">
+      <SimpleInput type="tel" value={to} onChange={setTo} placeholder="+1 234 567 8900" />
+    </LabeledInput>
+    <LabeledInput label="Pre-filled Message (optional)">
+      <TextAreaInput value={body} onChange={setBody} placeholder="Hello..." />
+    </LabeledInput>
   </div>
 );
 
 const MapInput = ({ lat, setLat, lon, setLon }) => (
-  <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-    <SimpleInput value={lat} onChange={setLat} placeholder="Latitude (e.g., 40.7128)" />
-    <SimpleInput value={lon} onChange={setLon} placeholder="Longitude (e.g., -74.0060)" />
+  <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+    <LabeledInput label="Latitude">
+      <SimpleInput value={lat} onChange={setLat} placeholder="40.7128" />
+    </LabeledInput>
+    <LabeledInput label="Longitude">
+      <SimpleInput value={lon} onChange={setLon} placeholder="-74.0060" />
+    </LabeledInput>
   </div>
 );
 
 const UpiInput = ({ pa, setPa, pn, setPn, am, setAm }) => (
-  <div className="space-y-3">
-    <SimpleInput value={pa} onChange={setPa} placeholder="UPI ID (e.g. user@bank)" />
-    <SimpleInput value={pn} onChange={setPn} placeholder="Payee Name" />
-    <SimpleInput type="number" value={am} onChange={setAm} placeholder="Amount (optional)" />
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <LabeledInput label="UPI ID">
+      <SimpleInput value={pa} onChange={setPa} placeholder="yourname@okhdfcbank" />
+    </LabeledInput>
+    <LabeledInput label="Payee Name">
+      <SimpleInput value={pn} onChange={setPn} placeholder="John Doe" />
+    </LabeledInput>
+    <LabeledInput label="Amount (optional)">
+      <SimpleInput type="number" value={am} onChange={setAm} placeholder="0.00" />
+    </LabeledInput>
   </div>
 );
 
 const EventInput = ({ title, setTitle, start, setStart, end, setEnd, location, setLocation, description, setDescription }) => (
-  <div className="space-y-3">
-    <SimpleInput value={title} onChange={setTitle} placeholder="Event Title" />
-    <div className="grid grid-cols-1 sm:grid-cols-2 gap-3">
-      <div>
-        <label className="text-xs text-muted-foreground">Start Time</label>
-        <SimpleInput type="datetime-local" value={start} onChange={setStart} />
-      </div>
-      <div>
-        <label className="text-xs text-muted-foreground">End Time</label>
-        <SimpleInput type="datetime-local" value={end} onChange={setEnd} />
-      </div>
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <LabeledInput label="Event Title">
+      <SimpleInput value={title} onChange={setTitle} placeholder="My Event" />
+    </LabeledInput>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+      <LabeledInput label="Start Time">
+        <input type="datetime-local" value={start} onChange={e => setStart(e.target.value)} className="dark-input" />
+      </LabeledInput>
+      <LabeledInput label="End Time">
+        <input type="datetime-local" value={end} onChange={e => setEnd(e.target.value)} className="dark-input" />
+      </LabeledInput>
     </div>
-    <SimpleInput value={location} onChange={setLocation} placeholder="Location" />
-    <TextAreaInput value={description} onChange={setDescription} placeholder="Description" />
+    <LabeledInput label="Location">
+      <SimpleInput value={location} onChange={setLocation} placeholder="New York, USA" />
+    </LabeledInput>
+    <LabeledInput label="Description">
+      <TextAreaInput value={description} onChange={setDescription} placeholder="Event details..." />
+    </LabeledInput>
   </div>
 );
 
 const CryptoInput = ({ coin, setCoin, address, setAddress, amount, setAmount }) => (
-  <div className="space-y-3">
-    <select value={coin} onChange={e => setCoin(e.target.value)} className="w-full p-3 bg-input border rounded-md focus:ring-2 focus:ring-ring focus:outline-none appearance-none">
-      <option value="bitcoin">Bitcoin (BTC)</option>
-      <option value="ethereum">Ethereum (ETH)</option>
-      <option value="litecoin">Litecoin (LTC)</option>
-      <option value="dogecoin">Dogecoin (DOGE)</option>
-    </select>
-    <SimpleInput value={address} onChange={setAddress} placeholder="Wallet Address" />
-    <SimpleInput type="number" value={amount} onChange={setAmount} placeholder="Amount (optional)" />
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <LabeledInput label="Cryptocurrency">
+      <select value={coin} onChange={e => setCoin(e.target.value)} className="dark-select">
+        <option value="bitcoin">Bitcoin (BTC)</option>
+        <option value="ethereum">Ethereum (ETH)</option>
+        <option value="litecoin">Litecoin (LTC)</option>
+        <option value="dogecoin">Dogecoin (DOGE)</option>
+      </select>
+    </LabeledInput>
+    <LabeledInput label="Wallet Address">
+      <SimpleInput value={address} onChange={setAddress} placeholder="bc1qar0srrr7xfkvy5l..." />
+    </LabeledInput>
+    <LabeledInput label="Amount (optional)">
+      <SimpleInput type="number" value={amount} onChange={setAmount} placeholder="0.000" />
+    </LabeledInput>
   </div>
 );
 
-const BankAccountInput = ( {beneficiaryName, setBeneficiaryName,accountNumber, setAccountNumber,
-   ifsc, setIfsc, bankName, setBankName}) => (
-  <div className="space-y-3">
-    <SimpleInput type="number" value={beneficiaryName} onChange={setBeneficiaryName} placeholder="Beneficiary Name" />
-    <SimpleInput value={accountNumber} onChange={setAccountNumber} placeholder="Account Number" />
-    <SimpleInput value={ifsc} onChange={setIfsc} placeholder="IFSC Code" />
-    <SimpleInput value={bankName} onChange={setBankName} placeholder="Bank Name" />
-  
+const BankAccountInput = ({ beneficiaryName, setBeneficiaryName, accountNumber, setAccountNumber, ifsc, setIfsc, bankName, setBankName }) => (
+  <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+    <LabeledInput label="Beneficiary Name">
+      <SimpleInput value={beneficiaryName} onChange={setBeneficiaryName} placeholder="John Doe" />
+    </LabeledInput>
+    <LabeledInput label="Account Number">
+      <SimpleInput value={accountNumber} onChange={setAccountNumber} placeholder="00001234567890" />
+    </LabeledInput>
+    <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+      <LabeledInput label="IFSC Code">
+        <SimpleInput value={ifsc} onChange={setIfsc} placeholder="HDFC0000001" />
+      </LabeledInput>
+      <LabeledInput label="Bank Name">
+        <SimpleInput value={bankName} onChange={setBankName} placeholder="HDFC Bank" />
+      </LabeledInput>
+    </div>
   </div>
-   );
-// const BankAccountInput = ({ pa, setPa, pn, setPn, am, setAm }) => (
-//   <div className="space-y-3">
-//     <SimpleInput value={pa} onChange={setPa} placeholder="UPI1 ID (e.g. user@bank)" />
-//     <SimpleInput value={pn} onChange={setPn} placeholder="Payee Name" />
-//     <SimpleInput type="number" value={am} onChange={setAm} placeholder="Amount (optional)" />
-//   </div>
-// );
+);
 
-function ContentInput({ contentType, value, onChange,  qrTypes, activeTab, setActiveTab,
+const FileHostingInput = ({ value, onChange, label = 'Upload PDF / File' }) => {
+  const { user } = useAuth();
+  const [uploading, setUploading] = useState(false);
+  const [error, setError] = useState('');
+
+  const handleUpload = async (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+
+    if (!user) {
+      setError('Please sign in to upload and host files.');
+      return;
+    }
+
+    setUploading(true);
+    setError('');
+
+    try {
+      const fileExt = file.name.split('.').pop();
+      const fileName = `${user.id}/${Math.random()}.${fileExt}`;
+      const filePath = `hosted_files/${fileName}`;
+
+      const { data, error: uploadError } = await supabase.storage
+        .from('qr_codes') // Reusing the same bucket for now, or create a new one
+        .upload(filePath, file);
+
+      if (uploadError) throw uploadError;
+
+      const { data: { publicUrl } } = supabase.storage
+        .from('qr_codes')
+        .getPublicUrl(filePath);
+
+      onChange(publicUrl);
+    } catch (err) {
+      setError(err.message);
+    } finally {
+      setUploading(false);
+    }
+  };
+
+  return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '12px' }}>
+      <LabeledInput label={label}>
+        <div 
+          onClick={() => document.getElementById('file-upload').click()}
+          style={{
+            border: '2px dashed rgba(255, 255, 255, 0.1)',
+            borderRadius: '12px',
+            padding: '32px 20px',
+            textAlign: 'center',
+            cursor: 'pointer',
+            transition: 'all 0.2s',
+            background: 'rgba(255, 255, 255, 0.02)',
+          }}
+          onMouseEnter={e => e.currentTarget.style.borderColor = 'rgba(99, 102, 241, 0.4)'}
+          onMouseLeave={e => e.currentTarget.style.borderColor = 'rgba(255, 255, 255, 0.1)'}
+        >
+          <input id="file-upload" type="file" onChange={handleUpload} style={{ display: 'none' }} />
+          
+          {uploading ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+              <Loader size={24} color="#6366f1" className="animate-spin" />
+              <p style={{ fontSize: '13px', color: 'var(--text-secondary)' }}>Uploading file...</p>
+            </div>
+          ) : value ? (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+              <Check size={24} color="#4ade80" />
+              <p style={{ fontSize: '13px', color: '#4ade80', fontWeight: 600 }}>File Linked Successfully</p>
+              <p style={{ fontSize: '11px', color: 'var(--text-muted)', wordBreak: 'break-all' }}>{value}</p>
+            </div>
+          ) : (
+            <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: '8px' }}>
+              <Upload size={24} color="var(--text-muted)" />
+              <p style={{ fontSize: '14px', color: 'var(--text-secondary)' }}>Click to upload PDF or Image</p>
+              <p style={{ fontSize: '11px', color: 'var(--text-muted)' }}>Max size: 5MB</p>
+            </div>
+          )}
+        </div>
+      </LabeledInput>
+      
+      {error && <p style={{ fontSize: '12px', color: '#f87171', margin: 0 }}>{error}</p>}
+      
+      {value && (
+        <button 
+          onClick={() => onChange('')} 
+          className="btn-ghost" 
+          style={{ fontSize: '12px', color: '#f87171', alignSelf: 'flex-start' }}
+        >
+          Remove File
+        </button>
+      )}
+    </div>
+  );
+};
+
+function ContentInput({
+  contentType, value, onChange, qrTypes, activeTab, setActiveTab,
   text, setText,
   wifiSsid, setWifiSsid, wifiPassword, setWifiPassword, wifiEncryption, setWifiEncryption,
   vcardName, setVcardName, vcardPhone, setVcardPhone, vcardEmail, setVcardEmail,
@@ -125,17 +293,15 @@ function ContentInput({ contentType, value, onChange,  qrTypes, activeTab, setAc
   whatsappTo, setWhatsappTo, whatsappBody, setWhatsappBody,
   mapLat, setMapLat, mapLon, setMapLon,
   upiPa, setUpiPa, upiPn, setUpiPn, upiAm, setUpiAm,
-   bankBeneficiaryName, setBankBeneficiaryName,bankAccountNumber, setBankAccountNumber,
-   bankIfsc, setBankIfsc, bbankName, setBBankName,
+  bankBeneficiaryName, setBankBeneficiaryName, bankAccountNumber, setBankAccountNumber,
+  bankIfsc, setBankIfsc, bbankName, setBBankName,
   eventTitle, setEventTitle, eventStart, setEventStart, eventEnd, setEventEnd, eventLocation, setEventLocation, eventDesc, setEventDesc,
-  cryptoCoin, setCryptoCoin, cryptoAddress, setCryptoAddress, cryptoAmount, setCryptoAmount }) {
-  
+  cryptoCoin, setCryptoCoin, cryptoAddress, setCryptoAddress, cryptoAmount, setCryptoAmount,
+}) {
+  const currentType = qrTypes.find(t => t.id === activeTab);
+  const placeholder = currentType?.placeholder || '';
 
   const renderInputs = () => {
-    const currentType = qrTypes.find(t => t.id === activeTab);
-    const placeholder = currentType?.placeholder || '';
-    console.log(activeTab, "rendering inputs for type" );
-    
     switch (activeTab) {
       case 'wifi':
         return <WifiInput ssid={wifiSsid} setSsid={setWifiSsid} password={wifiPassword} setPassword={setWifiPassword} encryption={wifiEncryption} setEncryption={setWifiEncryption} />;
@@ -156,21 +322,25 @@ function ContentInput({ contentType, value, onChange,  qrTypes, activeTab, setAc
       case 'text':
         return <TextAreaInput value={text} onChange={setText} placeholder={placeholder} />;
       case 'bank-account':
-        return <BankAccountInput beneficiaryName={bankBeneficiaryName} setBeneficiaryName={setBankBeneficiaryName}
-          setAccountNumber = {setBankAccountNumber} accountNumber = {bankAccountNumber}
-          ifsc = {bankIfsc} setIfsc = {setBankIfsc} 
-           bankName ={bbankName} setBankName ={setBBankName} 
-           />;  
-      default: // for url, email, phone, socials, file
+        return (
+          <BankAccountInput
+            beneficiaryName={bankBeneficiaryName} setBeneficiaryName={setBankBeneficiaryName}
+            accountNumber={bankAccountNumber} setAccountNumber={setBankAccountNumber}
+            ifsc={bankIfsc} setIfsc={setBankIfsc}
+            bankName={bbankName} setBankName={setBBankName}
+          />
+        );
+      case 'file':
+      case 'menu':
+        return <FileHostingInput value={text} onChange={setText} label={activeTab === 'menu' ? 'Upload Restaurant Menu (PDF)' : 'Upload File to Link'} />;
+      default:
         return <SimpleInput value={text} onChange={setText} placeholder={placeholder} type={activeTab === 'url' ? 'url' : 'text'} />;
     }
   };
 
-
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Your Content</h3>
-      <div className="mt-2">{renderInputs()}</div>
+    <div style={{ marginTop: '4px' }}>
+      {renderInputs()}
     </div>
   );
 }
