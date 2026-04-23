@@ -114,8 +114,8 @@ function QrGenerator() {
 
       case 'event':
         if (!eventTitle || !eventStart || !eventEnd) return '';
-        const startArr = new Date(eventStart).toISOString().split(/[-:.]/);
-        const endArr = new Date(eventEnd).toISOString().split(/[-:.]/);
+        const startArr = new Date(eventStart).toISOString().split(/\D/);
+        const endArr = new Date(eventEnd).toISOString().split(/\D/);
         const event = {
           title: eventTitle,
           start: [Number(startArr[0]), Number(startArr[1]), Number(startArr[2]), Number(startArr[3]), Number(startArr[4])],

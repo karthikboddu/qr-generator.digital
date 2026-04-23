@@ -1,4 +1,4 @@
-import { Wifi, User, Link, Type, Mail, Phone,Landmark, MessageSquare, MessageCircle, Facebook, Twitter, Instagram, Youtube, MapPin, File as FileIcon, IndianRupee, Calendar, Bitcoin } from 'lucide-react';
+import { Wifi, User, Link, Type, Mail, Phone,Landmark, MessageSquare, MessageCircle, Facebook, Twitter, Instagram, Youtube, MapPin, File as FileIcon, IndianRupee, Calendar, Bitcoin, Zap, Globe, Utensils, Star, FileUser } from 'lucide-react';
 
 export const QR_TYPES = [
   { id: 'url', name: 'URL', placeholder: 'https://example.com', icon: <Link className="w-4 h-4" /> },
@@ -19,4 +19,9 @@ export const QR_TYPES = [
   { id: 'instagram', name: 'Instagram', placeholder: 'https://instagram.com/username', icon: <Instagram className="w-4 h-4" /> },
   { id: 'youtube', name: 'YouTube', placeholder: 'https://youtube.com/channel/ID', icon: <Youtube className="w-4 h-4" /> },
   { id: 'file', name: 'File URL', placeholder: 'https://example.com/document.pdf', icon: <FileIcon className="w-4 h-4" /> },
+  { id: 'dynamic', name: 'Dynamic QR', placeholder: 'https://example.com', icon: <Zap className="w-4 h-4" /> },
+  { id: 'social-hub', name: 'Social Hub', placeholder: 'My Social Page', icon: <Globe className="w-4 h-4" /> },
+  { id: 'menu', name: 'PDF Menu', placeholder: 'Upload or paste your menu URL', icon: <Utensils className="w-4 h-4" /> },
+  { id: 'google-review', name: 'Google Review', placeholder: 'https://g.page/r/your-review-link', icon: <Star className="w-4 h-4" /> },
+  { id: 'resume', name: 'Resume', placeholder: 'https://example.com/resume.pdf', icon: <FileUser className="w-4 h-4" /> },
 ];

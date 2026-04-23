@@ -1,53 +1,60 @@
-import React, {useState} from 'react';
-import { Link, Type, Mail, Phone, MessageSquare, Wifi, CreditCard, MapPin, IndianRupee, Calendar, Bitcoin, Facebook, Twitter, Instagram, Youtube, FileText } from 'lucide-react';
-import { cn } from '../lib/utils';
+import React from 'react';
 
-const contentTypes = [
-  { id: 'url', label: 'URL', icon: Link },
-  { id: 'text', label: 'Text', icon: Type },
-  { id: 'email', label: 'Email', icon: Mail },
-  { id: 'phone', label: 'Phone', icon: Phone },
-  { id: 'sms', label: 'SMS', icon: MessageSquare },
-  { id: 'whatsapp', label: 'WhatsApp', icon: MessageSquare },
-  { id: 'wifi', label: 'Wi-Fi', icon: Wifi },
-  { id: 'vcard', label: 'vCard', icon: CreditCard },
-  { id: 'map', label: 'Map', icon: MapPin },
-  { id: 'upi', label: 'UPI', icon: IndianRupee },
-  { id: 'event', label: 'Event', icon: Calendar },
-  { id: 'crypto', label: 'Crypto', icon: Bitcoin },
-  { id: 'facebook', label: 'Facebook', icon: Facebook },
-  { id: 'twitter', label: 'Twitter', icon: Twitter },
-  { id: 'instagram', label: 'Instagram', icon: Instagram },
-  { id: 'youtube', label: 'YouTube', icon: Youtube },
-  { id: 'fileurl', label: 'File URL', icon: FileText }
-];
-
-function ContentTypeSelector({ selected, onSelect ,activeTab, setActiveTab, qrTypes}) {
-
+function ContentTypeSelector({ selected, onSelect, activeTab, setActiveTab, qrTypes }) {
   return (
-    <div className="bg-white rounded-2xl shadow-sm p-6 border border-gray-100">
-      <h3 className="text-lg font-semibold text-gray-900 mb-4">Content Type</h3>
-      <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-2">
-          {qrTypes.map((tab) => (
-            <button
-              key={tab.id}
-              onClick={() => {
-                setActiveTab(tab.id)
-                onSelect(tab.id)
-                }
+    <div
+      className="content-type-scroll"
+      style={{ paddingBottom: '0', marginBottom: '0' }}
+    >
+      {qrTypes.map((tab) => {
+        const isActive = activeTab === tab.id;
+        return (
+          <button
+            key={tab.id}
+            onClick={() => {
+              setActiveTab(tab.id);
+              onSelect(tab.id);
+            }}
+            style={{
+              display: 'flex',
+              flexDirection: 'column',
+              alignItems: 'center',
+              gap: '5px',
+              padding: '10px 14px',
+              border: 'none',
+              borderBottom: isActive
+                ? '2px solid #6366f1'
+                : '2px solid transparent',
+              background: 'transparent',
+              color: isActive ? '#6366f1' : 'var(--text-secondary)',
+              fontSize: '11px',
+              fontWeight: isActive ? 600 : 500,
+              cursor: 'pointer',
+              transition: 'all 0.15s ease',
+              whiteSpace: 'nowrap',
+              borderRadius: '0',
+              flexShrink: 0,
+            }}
+            onMouseEnter={e => {
+              if (!isActive) {
+                e.currentTarget.style.color = 'var(--text-primary)';
               }
-              className={cn(
-                "flex items-center justify-center text-center gap-2 px-3 py-2 text-sm font-medium rounded-md transition-colors",
-                activeTab === tab.id
-                  ? "bg-purple-600 text-white"
-                  : "bg-secondary text-secondary-foreground hover:bg-muted"
-              )}
-            >
+            }}
+            onMouseLeave={e => {
+              if (!isActive) {
+                e.currentTarget.style.color = 'var(--text-secondary)';
+              }
+            }}
+          >
+            <span style={{ opacity: isActive ? 1 : 0.7, fontSize: '16px', lineHeight: 1 }}>
               {tab.icon}
-              <span>{tab.name}</span>
-            </button>
-          ))}
-      </div>
+            </span>
+            <span style={{ textTransform: 'uppercase', letterSpacing: '0.04em', fontSize: '10px' }}>
+              {tab.name}
+            </span>
+          </button>
+        );
+      })}
     </div>
   );
 }
