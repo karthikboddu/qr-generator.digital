@@ -11,9 +11,10 @@ Thumbs.db
 
 .vscode/
 .idea/
-
+.DS_Store
 .vite/
 *.log
 *.tmp
-
+.env.
+.env
 supabase/.temp/
