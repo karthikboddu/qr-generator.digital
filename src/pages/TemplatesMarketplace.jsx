@@ -21,6 +21,32 @@ function TemplatesMarketplace() {
         title="QR Code Templates Marketplace"
         description="Browse our curated collection of professional QR code templates for restaurants, weddings, social media, business cards, and more."
         path="/templates"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://qr-generator.digital/"
+            },{
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Templates",
+              "item": "https://qr-generator.digital/templates"
+            }]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": templates.map((t, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "url": `https://qr-generator.digital/generator/${t.slug}`
+            }))
+          }
+        ]}
       />
       
       <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '60px 20px' }}>

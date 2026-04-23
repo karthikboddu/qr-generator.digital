@@ -19,6 +19,42 @@ function GeneratorPage() {
           title={currentTemplate.title}
           description={currentTemplate.seoDescription}
           path={`/generator/${currentTemplate.slug}`}
+          jsonLd={[
+            {
+              "@context": "https://schema.org",
+              "@type": "SoftwareApplication",
+              "name": currentTemplate.title,
+              "applicationCategory": "UtilityApplication",
+              "operatingSystem": "Web",
+              "description": currentTemplate.seoDescription,
+              "offers": {
+                "@type": "Offer",
+                "price": "0",
+                "priceCurrency": "USD"
+              },
+              "featureList": currentTemplate.features.join(', ')
+            },
+            {
+              "@context": "https://schema.org",
+              "@type": "BreadcrumbList",
+              "itemListElement": [{
+                "@type": "ListItem",
+                "position": 1,
+                "name": "Home",
+                "item": "https://qr-generator.digital/"
+              },{
+                "@type": "ListItem",
+                "position": 2,
+                "name": "Generator",
+                "item": "https://qr-generator.digital/templates"
+              },{
+                "@type": "ListItem",
+                "position": 3,
+                "name": currentTemplate.title,
+                "item": `https://qr-generator.digital/generator/${currentTemplate.slug}`
+              }]
+            }
+          ]}
         />
         <Generator initialContentType={currentTemplate.defaultValues.contentType} />
       </>
@@ -35,6 +71,26 @@ function GeneratorPage() {
           title={currentContentType.label + ' QR Code Generator'}
           description={currentContentType.description}
           path={`/generator/${currentContentType.id}`}
+          jsonLd={{
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://qr-generator.digital/"
+            },{
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Generator",
+              "item": "https://qr-generator.digital/templates"
+            },{
+              "@type": "ListItem",
+              "position": 3,
+              "name": currentContentType.label,
+              "item": `https://qr-generator.digital/generator/${currentContentType.id}`
+            }]
+          }}
         />
         <Generator initialContentType={currentContentType.id} />
       </>

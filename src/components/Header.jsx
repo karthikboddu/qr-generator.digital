@@ -31,7 +31,7 @@ function Header() {
         zIndex: 100,
       }}
     >
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
+      <div className="header-container" style={{ maxWidth: '1280px', margin: '0 auto', padding: '0 24px' }}>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', height: '64px' }}>
 
           {/* Logo */}
@@ -58,7 +58,7 @@ function Header() {
           </Link>
 
           {/* Desktop Nav */}
-          <nav style={{ display: 'flex', alignItems: 'center', gap: '4px' }} className="hidden md:flex">
+          <nav style={{ alignItems: 'center', gap: '4px' }} className="hidden md:flex">
             {[
               { path: '/', label: 'Generator', icon: QrCode },
               { path: '/generator/dynamic-qr-generator', label: 'Dynamic', icon: Zap },
@@ -130,7 +130,7 @@ function Header() {
                 </div>
               </>
             ) : (
-              <>
+              <div className="hidden md:flex" style={{ alignItems: 'center', gap: '10px' }}>
                 <Link to="/login"
                   style={{
                     display: 'flex', alignItems: 'center', gap: '6px',
@@ -157,7 +157,7 @@ function Header() {
                   <Sparkles size={14} />
                   Start free
                 </Link>
-              </>
+              </div>
             )}
 
             {/* Mobile hamburger */}

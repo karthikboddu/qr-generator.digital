@@ -447,10 +447,13 @@ h1, h2, h3, h4, h5, h6 {
   display: flex;
   gap: 4px;
   overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
   padding-bottom: 4px;
   border-bottom: 1px solid var(--border-subtle);
   margin-bottom: 20px;
+  width: 100%;
+  overscroll-behavior-x: contain;
 }
 .content-type-scroll::-webkit-scrollbar { display: none; }
 
@@ -1375,5 +1378,38 @@ h1, h2, h3, h4, h5, h6 {
 
   .hub-link-row {
     grid-template-columns: 1fr !important;
+  }
+
+  .generator-grid {
+    grid-template-columns: 1fr !important;
+    width: 100% !important;
+  }
+
+  .generator-grid > div {
+    min-width: 0;
+    max-width: 100%;
+    width: 100%;
+  }
+
+  .preview-panel {
+    position: static !important;
+    width: 100% !important;
+  }
+
+  .step-card {
+    padding: 16px !important;
+    border-radius: 16px !important;
+  }
+
+  .content-input-container {
+    padding: 12px !important;
+  }
+
+  .header-container {
+    padding: 0 12px !important;
+  }
+
+  .section-heading-row h2 {
+    font-size: 24px !important;
   }
 }

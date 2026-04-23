@@ -69,6 +69,30 @@
     <changefreq>yearly</changefreq>
     <priority>0.70</priority>
   </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/how-restaurants-use-qr-menus</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/best-qr-code-colors-for-scanning</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/qr-codes-for-wedding-invitations</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/how-to-track-qr-scans</loc>
+    <lastmod>2026-04-23</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.70</priority>
+  </url>
 
   <!-- Specialized Generator Landing Pages (SEO Templates) -->
   <url>

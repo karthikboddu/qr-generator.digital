@@ -31,52 +31,62 @@ function Blog() {
         type="blog"
         jsonLd={blogJsonLd}
       />
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="mb-8 md:mb-12 text-center">
-          <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-3">Our Blog</h1>
-          <p className="text-base md:text-lg text-gray-600 max-w-2xl mx-auto">
-            Insights, tips, and updates from the QR Generator team.
-          </p>
-        </div>
+      <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '60px 20px' }}>
+        <div className="animate-fadeInUp relative z-10 max-w-7xl mx-auto">
+          <div className="mb-12 md:mb-16 text-center">
+            <h1 style={{ 
+              fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: 'clamp(36px, 6vw, 64px)', 
+              color: 'var(--text-primary)', margin: '0 0 16px', letterSpacing: '-0.04em'
+            }}>
+              Our <span className="gradient-text">Blog</span>
+            </h1>
+            <p style={{ 
+              color: 'var(--text-secondary)', fontSize: '18px', maxWidth: '700px', margin: '0 auto',
+              lineHeight: 1.6
+            }}>
+              Insights, tips, and updates from the QR Generator team.
+            </p>
+          </div>
 
-        <div className="grid gap-6 md:grid-cols-3 mb-10">
-          <div className="rounded-2xl border border-gray-100 bg-white p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Practical Guides</h2>
-            <p className="text-gray-600">
-              Learn when to use URL, Wi-Fi, UPI, and contact QR codes in real business and everyday situations.
-            </p>
+          <div className="grid gap-6 md:grid-cols-3 mb-16">
+            <div className="dark-card p-6" style={{ background: 'var(--bg-card)' }}>
+              <h2 className="text-xl font-semibold text-gray-100 mb-2">Practical Guides</h2>
+              <p className="text-gray-400">
+                Learn when to use URL, Wi-Fi, UPI, and contact QR codes in real business and everyday situations.
+              </p>
+            </div>
+            <div className="dark-card p-6" style={{ background: 'var(--bg-card)' }}>
+              <h2 className="text-xl font-semibold text-gray-100 mb-2">Design Best Practices</h2>
+              <p className="text-gray-400">
+                We publish tips on sizing, contrast, logo placement, and print readiness so your QR codes stay scannable.
+              </p>
+            </div>
+            <div className="dark-card p-6" style={{ background: 'var(--bg-card)' }}>
+              <h2 className="text-xl font-semibold text-gray-100 mb-2">Use-Case Ideas</h2>
+              <p className="text-gray-400">
+                Explore examples for shops, events, menus, packaging, business cards, onboarding, and digital payments.
+              </p>
+            </div>
           </div>
-          <div className="rounded-2xl border border-gray-100 bg-white p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Design Best Practices</h2>
-            <p className="text-gray-600">
-              We publish tips on sizing, contrast, logo placement, and print readiness so your QR codes stay scannable.
-            </p>
-          </div>
-          <div className="rounded-2xl border border-gray-100 bg-white p-6">
-            <h2 className="text-xl font-semibold text-gray-900 mb-2">Use-Case Ideas</h2>
-            <p className="text-gray-600">
-              Explore examples for shops, events, menus, packaging, business cards, onboarding, and digital payments.
-            </p>
-          </div>
-        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {blogPosts.map((post) => (
-            <Link to={`/blog/${post.slug}`} key={post.slug} className="group block bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1">
-              <div className="h-48 overflow-hidden">
-                <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform group-hover:scale-105" loading="lazy" />
-              </div>
-              <div className="p-6">
-                <p className="text-sm text-gray-500 mb-2">{post.date} &bull; {post.author}</p>
-                <h2 className="text-xl font-semibold text-gray-900 mb-3 group-hover:text-purple-600 transition-colors">{post.title}</h2>
-                <p className="text-gray-600 text-sm mb-4 line-clamp-3">{post.excerpt}</p>
-                <div className="flex items-center text-purple-600 font-medium">
-                  Read More
-                  <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {blogPosts.map((post) => (
+              <Link to={`/blog/${post.slug}`} key={post.slug} className="group block dark-card overflow-hidden transition-all hover:shadow-lg hover:-translate-y-1" style={{ padding: 0, background: 'var(--bg-card)' }}>
+                <div className="h-48 overflow-hidden">
+                  <img src={post.image} alt={post.title} className="w-full h-full object-cover transition-transform group-hover:scale-105" loading="lazy" />
                 </div>
-              </div>
-            </Link>
-          ))}
+                <div className="p-6">
+                  <p className="text-sm text-gray-400 mb-2">{post.date} &bull; {post.author}</p>
+                  <h2 className="text-xl font-semibold text-gray-100 mb-3 group-hover:text-indigo-400 transition-colors" style={{ fontFamily: 'Outfit, sans-serif' }}>{post.title}</h2>
+                  <p className="text-gray-400 text-sm mb-4 line-clamp-3">{post.excerpt}</p>
+                  <div className="flex items-center text-indigo-400 font-medium">
+                    Read More
+                    <ArrowRight className="w-4 h-4 ml-1 transition-transform group-hover:translate-x-1" />
+                  </div>
+                </div>
+              </Link>
+            ))}
+          </div>
         </div>
       </div>
     </>

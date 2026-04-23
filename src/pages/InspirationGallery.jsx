@@ -74,6 +74,33 @@ function InspirationGallery() {
         title="QR Code Design Inspiration Gallery"
         description="Browse the world's most beautiful and effective QR code designs. Get inspired for your next restaurant menu, wedding, or marketing campaign."
         path="/inspiration"
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://qr-generator.digital/"
+            },{
+              "@type": "ListItem",
+              "position": 2,
+              "name": "Inspiration Gallery",
+              "item": "https://qr-generator.digital/inspiration"
+            }]
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "ItemList",
+            "itemListElement": inspirationData.map((t, index) => ({
+              "@type": "ListItem",
+              "position": index + 1,
+              "name": t.title,
+              "url": "https://qr-generator.digital/inspiration"
+            }))
+          }
+        ]}
       />
       
       <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '60px 20px' }}>

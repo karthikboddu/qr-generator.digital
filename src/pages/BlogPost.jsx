@@ -44,34 +44,41 @@ function BlogPost() {
         image={post.image}
         jsonLd={articleJsonLd}
       />
-      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8 md:py-12">
-        <div className="mb-8">
-          <Link to="/blog" className="inline-flex items-center text-purple-600 font-medium hover:text-purple-700 transition-colors">
-            <ArrowLeft className="w-4 h-4 mr-2" />
-            Back to Blog
-          </Link>
-        </div>
-
-        <article className="bg-white rounded-2xl shadow-sm border border-gray-100 overflow-hidden">
-          <img src={post.image} alt={post.title} className="w-full h-64 md:h-80 object-cover" />
-          <div className="p-6 md:p-10">
-            <h1 className="text-3xl md:text-4xl font-bold text-gray-900 mb-4">{post.title}</h1>
-            <div className="flex items-center space-x-4 text-sm text-gray-500 mb-8">
-              <div className="flex items-center">
-                <User className="w-4 h-4 mr-1.5" />
-                <span>{post.author}</span>
-              </div>
-              <div className="flex items-center">
-                <Calendar className="w-4 h-4 mr-1.5" />
-                <span>{post.date}</span>
-              </div>
-            </div>
-            <div
-              className="prose prose-lg max-w-none prose-h2:font-bold prose-h2:text-2xl prose-h2:mb-3 prose-p:mb-4 prose-a:text-purple-600 hover:prose-a:text-purple-700 prose-ul:list-disc prose-ul:pl-6 prose-li:mb-2"
-              dangerouslySetInnerHTML={{ __html: post.content }}
-            />
+      <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '40px 20px' }}>
+        <div className="animate-fadeInUp relative z-10 max-w-4xl mx-auto">
+          <div className="mb-8">
+            <Link to="/blog" className="inline-flex items-center text-indigo-400 font-medium hover:text-indigo-300 transition-colors">
+              <ArrowLeft className="w-4 h-4 mr-2" />
+              Back to Blog
+            </Link>
           </div>
-        </article>
+
+          <article className="dark-card overflow-hidden" style={{ background: 'var(--bg-card)', padding: 0 }}>
+            <img src={post.image} alt={post.title} className="w-full h-64 md:h-96 object-cover" />
+            <div className="p-6 md:p-10">
+              <h1 style={{ 
+                fontFamily: 'Outfit, sans-serif', fontWeight: 800, fontSize: 'clamp(28px, 5vw, 42px)', 
+                color: 'var(--text-primary)', margin: '0 0 16px', letterSpacing: '-0.02em', lineHeight: 1.2
+              }}>
+                {post.title}
+              </h1>
+              <div className="flex items-center space-x-4 text-sm text-gray-400 mb-8 pb-8 border-b border-white/10">
+                <div className="flex items-center">
+                  <User className="w-4 h-4 mr-1.5" />
+                  <span>{post.author}</span>
+                </div>
+                <div className="flex items-center">
+                  <Calendar className="w-4 h-4 mr-1.5" />
+                  <span>{post.date}</span>
+                </div>
+              </div>
+              <div
+                className="prose prose-lg max-w-none prose-invert prose-p:text-gray-300 prose-h2:text-gray-100 prose-h2:font-bold prose-h2:text-2xl prose-h2:mb-4 prose-h2:mt-8 prose-li:text-gray-300 prose-a:text-indigo-400 hover:prose-a:text-indigo-300 prose-ul:list-disc prose-ul:pl-6 prose-li:mb-2 prose-strong:text-white"
+                dangerouslySetInnerHTML={{ __html: post.content }}
+              />
+            </div>
+          </article>
+        </div>
       </div>
     </>
   );
