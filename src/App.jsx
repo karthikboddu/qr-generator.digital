@@ -14,10 +14,28 @@ import PrivacyPolicyPage from './pages/PrivacyPolicyPage';
 import ContactPage from './pages/ContactPage';
 import Blog from './pages/Blog';
 import BlogPost from './pages/BlogPost';
-import NotFound from './pages/NotFound';
+import DynamicQRRedirect from './pages/DynamicQRRedirect';
+import SocialHubPage from './pages/SocialHubPage';
+import BulkQRGenerator from './pages/BulkQRGenerator';
 import GeneratorPage from './pages/GeneratorPage';
-import MainLayout from './layouts/MainLayout';
+import TemplatesMarketplace from './pages/TemplatesMarketplace';
+import InspirationGallery from './pages/InspirationGallery';
+import NotFound from './pages/NotFound';
 import { trackSiteVisit } from './lib/trackSiteVisit';
+import MainLayout from './layouts/MainLayout';
+import Footer from './components/Footer';
+
+function PageLayout({ children }) {
+  return (
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
+      <Header />
+      <main style={{ flex: 1 }}>
+        {children}
+      </main>
+      <Footer />
+    </div>
+  );
+}
 
 function PrivateRoute({ children }) {
   const { user } = useAuth();
@@ -34,94 +52,101 @@ function AppRoutes() {
   return (
     <Routes>
       <Route path="/login" element={
-            <>
-              <Header />
-              <Login />
-            </>
-        } />
+        <PageLayout>
+          <Login />
+        </PageLayout>
+      } />
       <Route path="/register" element={
-            <>
-              <Header />
-              <Register />
-            </>
-        } />
+        <PageLayout>
+          <Register />
+        </PageLayout>
+      } />
       <Route path="/qr/:qrId" element={
-            <>
-              <Header />
-              <SharedQR />
-            </>
-        } />
+        <PageLayout>
+          <SharedQR />
+        </PageLayout>
+      } />
       <Route path="/about" element={
-            <>
-              <Header />
-              <AboutPage />
-            </>
-        } />
+        <PageLayout>
+          <AboutPage />
+        </PageLayout>
+      } />
+      <Route path="/r/:shortId" element={<DynamicQRRedirect />} />
+      <Route path="/hub/:shortId" element={<SocialHubPage />} />
       <Route path="/faq" element={
-            <>
-              <Header />
-              <FaqPage />
-            </>
-        } />
+        <PageLayout>
+          <FaqPage />
+        </PageLayout>
+      } />
       <Route path="/privacy-policy" element={
-            <>
-              <Header />
-              <PrivacyPolicyPage />
-            </>
-        } />
+        <PageLayout>
+          <PrivacyPolicyPage />
+        </PageLayout>
+      } />
       <Route path="/contact" element={
-            <>
-              <Header />
-              <ContactPage />
-            </>
-        }/>      
+        <PageLayout>
+          <ContactPage />
+        </PageLayout>
+      } />
       <Route
         path="/"
         element={
-            <>
-              <Header />
-              <Generator />
-            </>
+          <PageLayout>
+            <Generator />
+          </PageLayout>
         }
       />
       {/* Authenticated routes with main layout */}
       <Route element={<PrivateRoute><MainLayout /></PrivateRoute>}>
         <Route path="/dashboard" element={<Dashboard />} />
-        {/*<Route path="/blog" element={<Blog />} />
-        <Route path="/blog/:slug" element={<BlogPost />} /> */}
-        {/* <Route path="/" element={<GeneratorPage />} /> */}
-
       </Route>
-      <Route path="/generator/:slug" element={<GeneratorPage />} />      
+      
+      <Route path="/inspiration" element={
+        <PageLayout>
+          <InspirationGallery />
+        </PageLayout>
+      } />
+      
+      <Route path="/templates" element={
+        <PageLayout>
+          <TemplatesMarketplace />
+        </PageLayout>
+      } />
+      
+      <Route path="/generator/:slug" element={
+        <PageLayout>
+          <GeneratorPage />
+        </PageLayout>
+      } />
       <Route
         path="/blog"
         element={
-            <>
-              <Header />
-              <Blog />
-            </>
+          <PageLayout>
+            <Blog />
+          </PageLayout>
         }
       />
       <Route
         path="/blog/:slug"
         element={
-            <>
-              <Header />
-              <BlogPost />
-            </>
+          <PageLayout>
+            <BlogPost />
+          </PageLayout>
         }
       />
+      <Route path="/bulk" element={
+        <PageLayout>
+          <BulkQRGenerator />
+        </PageLayout>
+      } />
       <Route
         path="*"
         element={
-          <>
-            <Header />
+          <PageLayout>
             <NotFound />
-          </>
+          </PageLayout>
         }
       />
-
-      {/* This will only be hit if no other route matches */}
     </Routes>
   );
 }
@@ -134,7 +159,7 @@ function App() {
   return (
     <Router>
       <AuthProvider>
-        <div className="min-h-screen bg-gray-50">
+        <div style={{ minHeight: '100vh', background: 'var(--bg-primary)' }}>
           <AppRoutes />
         </div>
       </AuthProvider>

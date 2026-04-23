@@ -1,4 +1,4 @@
-import { Link, Type, Mail, Phone,Landmark, MessageSquare, Wifi, CreditCard, MapPin, IndianRupee, Calendar, Bitcoin, Facebook, Twitter, Instagram, Youtube, FileText } from 'lucide-react';
+import { Link, Type, Mail, Phone, Landmark, MessageSquare, Wifi, CreditCard, MapPin, IndianRupee, Calendar, Bitcoin, Facebook, Twitter, Instagram, Youtube, FileText, Zap, Globe, FileUser, Star, Utensils, ShoppingCart } from 'lucide-react';
 
 export const contentTypes = [
   { id: 'url-qr-generator', label: 'URL', icon: Link, description: 'Generate a QR code for any website or URL.' },
@@ -18,6 +18,13 @@ export const contentTypes = [
   { id: 'twitter-qr-generator', label: 'Twitter', icon: Twitter, description: 'Generate a QR code for a Twitter profile.' },
   { id: 'instagram-qr-generator', label: 'Instagram', icon: Instagram, description: 'Generate a QR code for an Instagram profile.' },
   { id: 'youtube-qr-generator', label: 'YouTube', icon: Youtube, description: 'Generate a QR code for a YouTube channel or video.' },
-  { id: 'file-qr-generator', label: 'File URL', icon: FileText, description: 'Generate a QR code to link to a downloadable file.' }
-
+  { id: 'file-qr-generator', label: 'File URL', icon: FileText, description: 'Generate a QR code to link to a downloadable file.' },
+  { id: 'dynamic-qr-generator', label: 'Dynamic QR', icon: Zap, description: 'Create an editable QR code with scan tracking and analytics.' },
+  { id: 'social-hub-qr-generator', label: 'Social Hub', icon: Globe, description: 'Create a single QR code that links to all your social media profiles.' },
+  { id: 'menu-qr-code-generator', label: 'PDF Menu', icon: Utensils, description: 'Generate a QR code for your restaurant menu or PDF document.' },
+  { id: 'google-review-qr-code-generator', label: 'Google Review', icon: Star, description: 'Get more reviews with a direct QR code to your Google Business profile.' },
+  { id: 'resume-qr-code-generator', label: 'Resume', icon: FileUser, description: 'Stand out with a QR code that links directly to your digital resume or portfolio.' },
+  { id: 'amazon-qr-code-generator', label: 'Amazon', icon: ShoppingCart, description: 'Direct users to your Amazon product page or storefront.' },
+  { id: 'shopify-qr-code-generator', label: 'Shopify', icon: ShoppingCart, description: 'Link directly to your Shopify store or a specific product.' },
+  { id: 'buy-now-qr-code-generator', label: 'Buy Now', icon: Zap, description: 'Create a direct checkout or payment link QR code.' }
 ];
