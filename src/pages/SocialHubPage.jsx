@@ -82,7 +82,37 @@ function SocialHubPage() {
 
   return (
     <>
-      <Seo title={`${hub.title} Social QR Hub`} description={hub.bio || 'Open this social media QR hub.'} path={`/hub/${shortId}`} robots="noindex,nofollow" />
+      <Seo 
+        title={`${hub.title} Social QR Hub`} 
+        description={hub.bio || 'Open this social media QR hub.'} 
+        path={`/hub/${shortId}`} 
+        robots="index,follow" 
+        jsonLd={[
+          {
+            "@context": "https://schema.org",
+            "@type": "Person",
+            "name": hub.title,
+            "description": hub.bio,
+            "url": window.location.href,
+            "sameAs": links.map(l => l.url)
+          },
+          {
+            "@context": "https://schema.org",
+            "@type": "BreadcrumbList",
+            "itemListElement": [{
+              "@type": "ListItem",
+              "position": 1,
+              "name": "Home",
+              "item": "https://qr-generator.digital/"
+            },{
+              "@type": "ListItem",
+              "position": 2,
+              "name": hub.title,
+              "item": window.location.href
+            }]
+          }
+        ]}
+      />
       <main style={{ minHeight: '100vh', background, padding: '32px 18px', display: 'grid', placeItems: 'center' }}>
         <div
           style={{

@@ -7,13 +7,53 @@ import { cn } from '../lib/utils';
 import JSZip from 'jszip';
 import { useAuth } from '../context/AuthContext';
 
-function ScannabilityBar({ value }) {
+function hexToRgb(hex) {
+  const result = /^#?([a-f\d]{2})([a-f\d]{2})([a-f\d]{2})$/i.exec(hex);
+  return result ? {
+    r: parseInt(result[1], 16),
+    g: parseInt(result[2], 16),
+    b: parseInt(result[3], 16)
+  } : { r: 0, g: 0, b: 0 };
+}
+
+function getContrast(c1, c2) {
+  const rgb1 = hexToRgb(c1);
+  const rgb2 = hexToRgb(c2);
+  const diff = Math.abs(rgb1.r - rgb2.r) + Math.abs(rgb1.g - rgb2.g) + Math.abs(rgb1.b - rgb2.b);
+  return diff / (255 * 3); // 0 to 1
+}
+
+function ScannabilityBar({ value, customization }) {
   const hasValue = value && value.length > 0;
-  const [score] = useState(hasValue ? Math.floor(65 + Math.random() * 30) : 0);
+  
+  // Calculate score
+  let score = 95; // Start high
+  
+  if (!hasValue) {
+    score = 0;
+  } else {
+    // 1. Contrast Check (Most Important)
+    const contrast = getContrast(customization.foreground, customization.background);
+    if (contrast < 0.2) score -= 70;
+    else if (contrast < 0.4) score -= 40;
+    else if (contrast < 0.6) score -= 15;
+
+    // 2. Complexity Check
+    if (value.length > 200) score -= 15;
+    else if (value.length > 100) score -= 8;
+
+    // 3. Logo Check
+    if (customization.logoDataURL) score -= 5;
+
+    // 4. Dot Style Check
+    if (customization.cornerStyle === 'rounded') score -= 2;
+  }
+
+  score = Math.max(5, Math.min(98, score)); // Clamp between 5 and 98 for UI
   
   const label = !hasValue ? 'Enter content to check scannability' : score >= 80 ? 'High Scannability' : score >= 50 ? 'Good Scannability' : 'Low Scannability';
   const labelColor = !hasValue ? 'var(--text-muted)' : score >= 80 ? '#4ade80' : score >= 50 ? '#f59e0b' : '#ef4444';
-  const indicatorPos = hasValue ? score : 0;
+  const indicatorPos = score;
 
   return (
     <div style={{ width: '100%' }}>
@@ -48,7 +88,7 @@ function ScannabilityBar({ value }) {
   );
 }
 
-function QrCodePreview({ value, customization, activeTab, onSave, isSaving, savedQrId }) {
+function QrCodePreview({ value, customization, activeTab, onSave, isSaving, savedQrId, savedShortId }) {
   const qrRef = useRef(null);
   const { user } = useAuth();
   const [copied, setCopied] = useState(false);
@@ -126,10 +166,12 @@ function QrCodePreview({ value, customization, activeTab, onSave, isSaving, save
     if (!qrId) {
       const savedQR = await onSave();
       if (savedQR) {
-        qrId = savedQR.id;
+        qrId = savedShortId || savedQR.short_id || savedQR.id;
       } else {
         return;
       }
+    } else {
+      qrId = savedShortId || savedQrId;
     }
     const shareUrl = `${window.location.origin}/qr/${qrId}`;
     navigator.clipboard.writeText(shareUrl);
@@ -187,8 +229,8 @@ function QrCodePreview({ value, customization, activeTab, onSave, isSaving, save
           <div
             ref={qrRef}
             style={{
-              width: 220,
-              height: hasFrame ? 240 : 220,
+              width: 190,
+              height: hasFrame ? 210 : 190,
               background: customization.background,
               display: 'flex',
               flexDirection: 'column',
@@ -202,7 +244,7 @@ function QrCodePreview({ value, customization, activeTab, onSave, isSaving, save
             {value ? (
               <QRCode
                 value={value}
-                size={hasFrame ? 170 : 188}
+                size={hasFrame ? 150 : 160}
                 fgColor={customization.foreground}
                 bgColor="transparent"
                 level="H"
@@ -254,7 +296,7 @@ function QrCodePreview({ value, customization, activeTab, onSave, isSaving, save
 
         {/* Scannability */}
         <div style={{ width: '100%', marginBottom: '12px' }}>
-          <ScannabilityBar value={value} />
+          <ScannabilityBar value={value} customization={customization} />
         </div>
 
         {/* Download & Action buttons */}

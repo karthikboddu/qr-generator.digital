@@ -12,9 +12,10 @@ import QrCodePreview from '../components/QrCodePreview';
 import DynamicQRCreator from '../components/DynamicQRCreator';
 import SocialHubBuilder from '../components/SocialHubBuilder';
 import PlatformShowcase from '../components/PlatformShowcase';
+import { generateShortId } from '../lib/dynamicQR';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Seo from '../components/Seo';
-import { ArrowRight, BarChart2, Sparkles, Palette, Image } from 'lucide-react';
+import { ArrowRight, BarChart2, Sparkles, Palette, Image, CheckCircle2, AlertCircle } from 'lucide-react';
 
 const ROUTE_TO_TAB = {
   'bank-account-qr-generator': 'bank-account',
@@ -225,7 +226,14 @@ function Generator({ initialContentType = 'url' }) {
   });
   const [isSaving, setIsSaving] = useState(false);
   const [savedQrId, setSavedQrId] = useState(null);
+  const [savedShortId, setSavedShortId] = useState(null);
+  const [toast, setToast] = useState(null); // { type: 'success' | 'error', message: string }
   const { user } = useAuth();
+
+  const triggerToast = (type, message) => {
+    setToast({ type, message });
+    setTimeout(() => setToast(null), 3000);
+  };
 
   const generateQR = async (output = 'dataURL') => {
     const qrPayload = qrValue || 'https://';
@@ -266,6 +274,7 @@ function Generator({ initialContentType = 'url' }) {
     };
     updateQR();
     setSavedQrId(null);
+    setSavedShortId(null);
   }, [qrValue, customization, contentType]);
 
   useEffect(() => {
@@ -274,11 +283,12 @@ function Generator({ initialContentType = 'url' }) {
 
   const handleSave = async () => {
     if (!user) {
-      alert('You must be logged in to save QR codes.');
+      triggerToast('error', 'You must be logged in to save QR codes.');
       return;
     }
     setIsSaving(true);
     try {
+      const shortId = generateShortId();
       const qrBlob = await generateQR('blob');
       const fileName = `${user.id}/${Date.now()}.png`;
 
@@ -291,6 +301,7 @@ function Generator({ initialContentType = 'url' }) {
         .from('qr_codes')
         .insert({
           user_id: user.id,
+          short_id: shortId,
           content_type: activeTab,
           content_data: qrValue,
           customization_options: customization,
@@ -301,11 +312,12 @@ function Generator({ initialContentType = 'url' }) {
 
       if (insertError) throw insertError;
       setSavedQrId(insertData.id);
-      alert('QR Code saved successfully!');
+      setSavedShortId(insertData.short_id);
+      triggerToast('success', 'QR Code saved successfully!');
       return insertData;
     } catch (error) {
       console.error('Error saving QR code:', error);
-      alert('Failed to save QR code.');
+      triggerToast('error', 'Failed to save QR code.');
     } finally {
       setIsSaving(false);
     }
@@ -416,17 +428,30 @@ function Generator({ initialContentType = 'url' }) {
       </div>
 
       {/* ===== GENERATOR STUDIO ===== */}
-      <div style={{ maxWidth: '1280px', margin: '0 auto', padding: '24px 24px 80px' }}>
-        <div style={{
+      <div style={{ width: '100%', maxWidth: '1280px', margin: '0 auto', padding: '0 16px 80px', overflowX: 'hidden' }}>
+        <div className="generator-grid" style={{
           display: 'grid',
           gridTemplateColumns: 'minmax(0, 1fr) 300px',
-          gap: '20px',
-          alignItems: 'start',
-        }}
-          className="generator-grid"
-        >
+          gap: '24px',
+        }}>
           {/* ===== LEFT COLUMN: Steps ===== */}
           <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+            
+            {/* Toast Notification */}
+            {toast && (
+              <div style={{
+                position: 'fixed', top: '24px', right: '24px', zIndex: 1000,
+                padding: '12px 20px', borderRadius: '12px',
+                background: toast.type === 'success' ? 'rgba(16, 185, 129, 0.95)' : 'rgba(239, 68, 68, 0.95)',
+                color: '#fff', boxShadow: '0 10px 25px rgba(0,0,0,0.3)',
+                display: 'flex', alignItems: 'center', gap: '10px',
+                backdropFilter: 'blur(10px)', border: '1px solid rgba(255,255,255,0.1)',
+                animation: 'slideIn 0.3s ease-out'
+              }}>
+                {toast.type === 'success' ? <CheckCircle2 size={18} /> : <AlertCircle size={18} />}
+                <span style={{ fontSize: '14px', fontWeight: 600 }}>{toast.message}</span>
+              </div>
+            )}
 
             {/* STEP 1: QR Type */}
             <div style={{
@@ -448,7 +473,7 @@ function Generator({ initialContentType = 'url' }) {
               </div>
 
               {/* Scrollable type tabs */}
-              <div style={{ padding: '0 8px' }}>
+              <div style={{ padding: '0 8px', width: '100%' }}>
                 <ContentTypeSelector
                   selected={contentType}
                   onSelect={handleContentTypeSelect}
@@ -495,7 +520,7 @@ function Generator({ initialContentType = 'url' }) {
                   Choose Your QR Code Style
                 </p>
               </div>
-              <div style={{ padding: '20px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: '16px' }}>
+              <div style={{ padding: '16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
                 {[
                   { id: 'custom', label: 'Custom QR', sub: 'Design your own', icon: Palette, active: true },
                   { id: 'image', label: 'Image QR', sub: 'With background image', icon: Image, active: false },
@@ -551,8 +576,8 @@ function Generator({ initialContentType = 'url' }) {
             </div>
           </div>
 
-          {/* ===== RIGHT COLUMN: Preview ===== */}
-          <div style={{ position: 'sticky', top: '84px' }}>
+          {/* ===== RIGHT COLUMN: Live Preview ===== */}
+          <div className="preview-panel" style={{ position: 'sticky', top: '88px', height: 'fit-content' }}>
             <QrCodePreview
               qrDataURL={qrDataURL}
               value={qrValue}
@@ -561,6 +586,7 @@ function Generator({ initialContentType = 'url' }) {
               onSave={handleSave}
               isSaving={isSaving}
               savedQrId={savedQrId}
+              savedShortId={savedShortId}
             />
           </div>
         </div>

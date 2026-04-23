@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useParams } from 'react-router-dom';
+import { useParams, Link } from 'react-router-dom';
 import { Download, Eye, QrCode as QrCodeIcon } from 'lucide-react';
 import { supabase } from '../supabaseClient';
 import QRCode from 'qrcode';
@@ -18,17 +18,25 @@ function SharedQR() {
       }
 
       try {
-        // Fetch QR data
-        const { data, error } = await supabase
+        // Fetch QR data by ID or Short ID
+        const isUuid = /^[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$/i.test(qrId);
+        
+        let query = supabase
           .from('qr_codes')
-          .select('*, scans:qr_scans(count)')
-          .eq('id', qrId)
-          .single();
+          .select('*, scans:qr_scans(count)');
+
+        if (isUuid) {
+          query = query.or(`id.eq.${qrId},short_id.eq.${qrId}`);
+        } else {
+          query = query.eq('short_id', qrId);
+        }
+
+        const { data, error } = await query.single();
 
         if (error || !data) throw error || new Error('QR code not found');
         
         // Track the scan asynchronously
-        await supabase.from('qr_scans').insert({ qr_id: qrId });
+        await supabase.from('qr_scans').insert({ qr_code_id: data.id });
 
         const formattedData = {
           id: data.id,
@@ -95,90 +103,131 @@ function SharedQR() {
 
   if (loading) {
     return (
-      <>
-        {seoElement}
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center">
-          <div className="text-center">
-            <div className="w-16 h-16 border-4 border-purple-600 border-t-transparent rounded-full animate-spin mx-auto mb-4"></div>
-            <p className="text-gray-600">Loading QR code...</p>
-          </div>
+      <div className="grid-bg" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+        <Seo title="Loading..." robots="noindex,nofollow" />
+        <div className="text-center">
+          <div className="w-12 h-12 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-4" />
+          <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>Loading QR details...</p>
         </div>
-      </>
+      </div>
     );
   }
 
   if (!qrData) {
     return (
-      <>
-        {seoElement}
-        <div className="min-h-screen bg-gray-50 flex items-center justify-center px-4">
-          <div className="text-center">
-            <QrCodeIcon className="w-16 h-16 text-gray-300 mx-auto mb-4" />
-            <h1 className="text-2xl font-bold text-gray-900 mb-2">QR Code Not Found</h1>
-            <p className="text-gray-600">This QR code does not exist or has been deleted.</p>
+      <div className="grid-bg" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+        <Seo title="Not Found" robots="noindex,nofollow" />
+        <div className="dark-card" style={{ maxWidth: '400px', width: '100%', textAlign: 'center', padding: '40px 24px' }}>
+          <div style={{ width: '64px', height: '64px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
+            <QrCodeIcon size={32} color="#ef4444" />
           </div>
+          <h1 style={{ fontFamily: 'Outfit', fontSize: '24px', fontWeight: 800, color: '#f8fafc', marginBottom: '12px' }}>QR Code Not Found</h1>
+          <p style={{ color: 'var(--text-secondary)', fontSize: '14px', lineHeight: 1.6, marginBottom: '24px' }}>The QR code you are looking for might have been deleted or the link is incorrect.</p>
+          <Link to="/" className="btn-primary" style={{ textDecoration: 'none', display: 'inline-flex' }}>Go to Home</Link>
         </div>
-      </>
+      </div>
     );
   }
 
   return (
-    <>
+    <div className="grid-bg" style={{ minHeight: '100vh', padding: '80px 20px 40px' }}>
       {seoElement}
-      <div className="min-h-screen bg-gradient-to-br from-purple-50 to-blue-50 py-12 px-4">
-        <div className="max-w-2xl mx-auto">
-          <div className="bg-white rounded-2xl shadow-xl p-8 md:p-12">
-            <div className="text-center mb-8">
-              <h1 className="text-3xl font-bold text-gray-900 mb-2">Shared QR Code</h1>
-              <p className="text-gray-600">Scan or download this QR code</p>
-            </div>
+      <div style={{ maxWidth: '500px', margin: '0 auto' }} className="animate-fadeInUp">
+        <div className="dark-card" style={{ padding: '40px 32px' }}>
+          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
+            <h1 style={{ 
+              fontFamily: 'Outfit, sans-serif', fontWeight: 900, fontSize: '32px', 
+              color: 'var(--text-primary)', margin: '0 0 8px', letterSpacing: '-0.03em' 
+            }}>
+              Shared <span className="gradient-text">QR Code</span>
+            </h1>
+            <p style={{ color: 'var(--text-secondary)', fontSize: '14px' }}>Scan or download this QR code</p>
+          </div>
 
-          <div className="bg-gray-50 rounded-xl p-8 mb-6">
-            <div className="bg-white rounded-lg p-6 inline-block mx-auto">
+          <div style={{ 
+            background: 'rgba(255,255,255,0.03)', 
+            borderRadius: '24px', 
+            padding: '24px', 
+            border: '1px solid rgba(255,255,255,0.05)',
+            display: 'flex',
+            justifyContent: 'center',
+            marginBottom: '32px'
+          }}>
+            <div style={{ 
+              background: '#fff', 
+              padding: '16px', 
+              borderRadius: '16px',
+              boxShadow: '0 20px 50px rgba(0,0,0,0.3)'
+            }}>
               <img
                 src={qrData.qrImage}
                 alt="QR Code"
-                className="w-64 h-64 mx-auto"
+                style={{ width: '220px', height: '220px', display: 'block' }}
               />
             </div>
           </div>
 
-          <div className="space-y-4 mb-8">
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <span className="text-gray-600 font-medium">Type</span>
-              <span className="px-3 py-1 bg-purple-100 text-purple-800 rounded-full text-sm font-medium">
-                {qrData.type}
-              </span>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: '12px', marginBottom: '32px' }}>
+            <div style={{ 
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              padding: '14px 18px', background: 'rgba(255,255,255,0.02)', borderRadius: '14px',
+              border: '1px solid rgba(255,255,255,0.04)'
+            }}>
+              <span style={{ color: 'var(--text-muted)', fontSize: '13px', fontWeight: 500 }}>Type</span>
+              <span className="badge badge-purple" style={{ textTransform: 'capitalize' }}>{qrData.type}</span>
             </div>
 
-            <div className="flex items-center justify-between p-4 bg-gray-50 rounded-lg">
-              <span className="text-gray-600 font-medium">Total Scans</span>
-              <div className="flex items-center">
-                <Eye className="w-4 h-4 mr-2 text-gray-400" />
-                <span className="text-gray-900 font-semibold">{qrData.scans}</span>
+            <div style={{ 
+              display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+              padding: '14px 18px', background: 'rgba(255,255,255,0.02)', borderRadius: '14px',
+              border: '1px solid rgba(255,255,255,0.04)'
+            }}>
+              <span style={{ color: 'var(--text-muted)', fontSize: '13px', fontWeight: 500 }}>Total Scans</span>
+              <div style={{ display: 'flex', alignItems: 'center', gap: '6px', color: '#f8fafc', fontWeight: 700 }}>
+                <Eye size={14} color="var(--accent-primary)" />
+                {qrData.scans}
               </div>
             </div>
 
-            <div className="p-4 bg-gray-50 rounded-lg">
-              <p className="text-gray-600 font-medium mb-2">Content</p>
-              <p className="text-gray-900 break-all">{qrData.content}</p>
+            <div style={{ 
+              padding: '16px 18px', background: 'rgba(255,255,255,0.02)', borderRadius: '14px',
+              border: '1px solid rgba(255,255,255,0.04)'
+            }}>
+              <p style={{ color: 'var(--text-muted)', fontSize: '12px', fontWeight: 500, marginBottom: '6px' }}>Content</p>
+              <p style={{ color: '#f8fafc', fontSize: '14px', fontWeight: 600, wordBreak: 'break-all', margin: 0 }}>
+                {qrData.content}
+              </p>
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-            <button onClick={() => handleDownload('png')} className="flex items-center justify-center px-6 py-3 bg-purple-600 text-white rounded-lg font-medium hover:bg-purple-700 transition">
-              <Download className="w-5 h-5 mr-2" />
-              Download PNG
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '12px' }}>
+            <button 
+              onClick={() => handleDownload('png')} 
+              className="btn-primary"
+              style={{ width: '100%', height: '48px', fontSize: '14px', fontWeight: 700, borderRadius: '12px' }}
+            >
+              <Download size={16} />
+              PNG
             </button>
-            <button onClick={() => handleDownload('svg')} className="flex items-center justify-center px-6 py-3 bg-white text-gray-700 border border-gray-300 rounded-lg font-medium hover:bg-gray-50 transition">
-              <Download className="w-5 h-5 mr-2" />
-              Download SVG
+            <button 
+              onClick={() => handleDownload('svg')} 
+              className="btn-secondary"
+              style={{ width: '100%', height: '48px', fontSize: '14px', fontWeight: 700, borderRadius: '12px' }}
+            >
+              <Download size={16} />
+              SVG
             </button>
           </div>
-        </div>
+
+          <Link to="/" style={{ 
+            display: 'block', textAlign: 'center', marginTop: '24px', 
+            color: 'var(--text-muted)', fontSize: '12px', textDecoration: 'none' 
+          }}>
+            Create your own at <span style={{ color: 'var(--accent-primary)', fontWeight: 600 }}>qr-generator.digital</span>
+          </Link>
         </div>
       </div>
-    </>
+    </div>
   );
 }
 
