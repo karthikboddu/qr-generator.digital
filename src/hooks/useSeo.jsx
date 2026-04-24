@@ -123,8 +123,38 @@ export function useSeo({
     });
     upsertLink('canonical', canonicalUrl);
 
+    const breadcrumbJsonLd = currentPath && currentPath !== '/' ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      'itemListElement': [
+        {
+          '@type': 'ListItem',
+          'position': 1,
+          'name': 'Home',
+          'item': SITE_URL
+        },
+        {
+          '@type': 'ListItem',
+          'position': 2,
+          'name': title.split(' | ')[0] || title,
+          'item': canonicalUrl
+        }
+      ]
+    } : null;
+
+    const allJsonLd = [];
+    if (breadcrumbJsonLd) allJsonLd.push(breadcrumbJsonLd);
+    
     if (jsonLd) {
-      upsertJsonLd(jsonLd);
+      if (Array.isArray(jsonLd)) {
+        allJsonLd.push(...jsonLd);
+      } else {
+        allJsonLd.push(jsonLd);
+      }
+    }
+
+    if (allJsonLd.length > 0) {
+      upsertJsonLd(allJsonLd);
     } else {
       const existingScripts = document.head.querySelectorAll('script[data-seo-json-ld="true"]');
       existingScripts.forEach((script) => script.remove());
