@@ -16,6 +16,7 @@ import { generateShortId } from '../lib/dynamicQR';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
 import Seo from '../components/Seo';
 import { ArrowRight, BarChart2, Sparkles, Palette, Image, CheckCircle2, AlertCircle } from 'lucide-react';
+import AIPromptBox from '../components/AIPromptBox';
 
 const ROUTE_TO_TAB = {
   'bank-account-qr-generator': 'bank-account',
@@ -47,6 +48,7 @@ function Generator({ initialContentType = 'url' }) {
   const [qrDataURL, setQrDataURL] = useState('');
   const [activeTab, setActiveTab] = useState(startingTab);
   const [featureQrValue, setFeatureQrValue] = useState('');
+  const [qrStyleType, setQrStyleType] = useState('custom');
   const navigate = useNavigate();
   const location = useLocation();
 
@@ -522,72 +524,87 @@ function Generator({ initialContentType = 'url' }) {
               </div>
               <div style={{ padding: '16px', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(140px, 1fr))', gap: '12px' }}>
                 {[
-                  { id: 'custom', label: 'Custom QR', sub: 'Design your own', icon: Palette, active: true },
-                  { id: 'image', label: 'Image QR', sub: 'With background image', icon: Image, active: false },
-                  { id: 'art', label: 'QR Art', sub: 'AI-generated design', icon: Sparkles, active: false },
-                ].map(s => (
-                  <div 
-                    key={s.id}
-                    style={{
-                      padding: '16px',
-                      borderRadius: '14px',
-                      background: s.active ? 'rgba(99, 102, 241, 0.08)' : 'rgba(255,255,255,0.03)',
-                      border: s.active ? '1px solid rgba(99, 102, 241, 0.5)' : '1px solid rgba(255,255,255,0.08)',
-                      cursor: s.active ? 'pointer' : 'not-allowed',
-                      textAlign: 'center',
-                      opacity: s.active ? 1 : 0.6,
-                      transition: 'all 0.2s'
-                    }}
-                  >
-                    <div style={{ 
-                      width: '40px', height: '40px', margin: '0 auto 12px',
-                      borderRadius: '10px', background: s.active ? '#6366f1' : 'rgba(255,255,255,0.1)',
-                      display: 'flex', alignItems: 'center', justifyContent: 'center'
-                    }}>
-                      <s.icon size={20} color="#fff" />
+                  { id: 'custom', label: 'Custom QR', sub: 'Design your own', icon: Palette },
+                  { id: 'image', label: 'Image QR', sub: 'With background image', icon: Image },
+                  { id: 'art', label: 'QR Art', sub: 'AI-generated design', icon: Sparkles },
+                ].map(s => {
+                  const isActive = qrStyleType === s.id;
+                  // For now, only custom and art are active
+                  const isDisabled = s.id === 'image';
+                  return (
+                    <div 
+                      key={s.id}
+                      onClick={() => !isDisabled && setQrStyleType(s.id)}
+                      style={{
+                        padding: '16px',
+                        borderRadius: '14px',
+                        background: isActive ? 'rgba(99, 102, 241, 0.08)' : 'rgba(255,255,255,0.03)',
+                        border: isActive ? '1px solid rgba(99, 102, 241, 0.5)' : '1px solid rgba(255,255,255,0.08)',
+                        cursor: isDisabled ? 'not-allowed' : 'pointer',
+                        textAlign: 'center',
+                        opacity: isDisabled ? 0.6 : 1,
+                        transition: 'all 0.2s'
+                      }}
+                    >
+                      <div style={{ 
+                        width: '40px', height: '40px', margin: '0 auto 12px',
+                        borderRadius: '10px', background: isActive ? '#6366f1' : 'rgba(255,255,255,0.1)',
+                        display: 'flex', alignItems: 'center', justifyContent: 'center'
+                      }}>
+                        <s.icon size={20} color="#fff" />
+                      </div>
+                      <p style={{ margin: 0, fontSize: '14px', fontWeight: 700, color: '#f8fafc' }}>{s.label}</p>
+                      <p style={{ margin: '4px 0 0', fontSize: '11px', color: 'var(--text-muted)' }}>{s.sub}</p>
                     </div>
-                    <p style={{ margin: 0, fontSize: '14px', fontWeight: 700, color: '#f8fafc' }}>{s.label}</p>
-                    <p style={{ margin: '4px 0 0', fontSize: '11px', color: 'var(--text-muted)' }}>{s.sub}</p>
-                  </div>
-                ))}
+                  );
+                })}
               </div>
             </div>
 
             {/* STEP 3: Design Your QR Code */}
-            <div style={{
-              background: 'var(--bg-card)',
-              border: '1px solid rgba(255,255,255,0.07)',
-              borderRadius: '16px',
-              overflow: 'hidden',
-            }}>
+            {qrStyleType === 'custom' ? (
               <div style={{
-                padding: '14px 20px',
-                borderBottom: '1px solid rgba(255,255,255,0.05)',
-                display: 'flex', alignItems: 'center', gap: '10px',
+                background: 'var(--bg-card)',
+                border: '1px solid rgba(255,255,255,0.07)',
+                borderRadius: '16px',
+                overflow: 'hidden',
               }}>
-                <div className="step-badge">3</div>
-                <p style={{ margin: 0, fontFamily: 'Outfit, sans-serif', fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
-                  Design Your QR Code
-                </p>
+                <div style={{
+                  padding: '14px 20px',
+                  borderBottom: '1px solid rgba(255,255,255,0.05)',
+                  display: 'flex', alignItems: 'center', gap: '10px',
+                }}>
+                  <div className="step-badge">3</div>
+                  <p style={{ margin: 0, fontFamily: 'Outfit, sans-serif', fontWeight: 600, fontSize: '14px', color: 'var(--text-primary)' }}>
+                    Design Your QR Code
+                  </p>
+                </div>
+                <div style={{ padding: '16px' }}>
+                  <CustomizeDesign customization={customization} onChange={setCustomization} />
+                </div>
               </div>
-              <div style={{ padding: '16px' }}>
-                <CustomizeDesign customization={customization} onChange={setCustomization} />
+            ) : qrStyleType === 'art' ? (
+              <div style={{ marginTop: '16px' }}>
+                <AIPromptBox qrValue={qrValue} />
               </div>
-            </div>
+            ) : null}
           </div>
 
           {/* ===== RIGHT COLUMN: Live Preview ===== */}
           <div className="preview-panel" style={{ position: 'sticky', top: '88px', height: 'fit-content' }}>
-            <QrCodePreview
-              qrDataURL={qrDataURL}
-              value={qrValue}
-              customization={customization}
-              activeTab={activeTab}
-              onSave={handleSave}
-              isSaving={isSaving}
-              savedQrId={savedQrId}
-              savedShortId={savedShortId}
-            />
+            {qrStyleType === 'custom' && (
+              <QrCodePreview
+                qrDataURL={qrDataURL}
+                value={qrValue}
+                customization={customization}
+                activeTab={activeTab}
+                onSave={handleSave}
+                isSaving={isSaving}
+                savedQrId={savedQrId}
+                savedShortId={savedShortId}
+              />
+            )}
+            <div id="ai-preview-portal-target"></div>
           </div>
         </div>
 

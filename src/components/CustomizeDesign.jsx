@@ -87,7 +87,13 @@ function CustomizeDesign({ customization, onChange }) {
       <div style={{ padding: '4px 4px 16px' }}>
         <TemplateSelector 
           currentSettings={customization} 
-          onSelect={(t) => onChange({ ...customization, foreground: t.foreground, background: t.background, cornerStyle: t.cornerStyle })} 
+          onSelect={(t) => onChange({ 
+            ...customization, 
+            foreground: t.foreground, 
+            background: t.background, 
+            cornerStyle: t.cornerStyle,
+            ...(t.logoDataURL ? { logoDataURL: t.logoDataURL, logoFile: null } : {})
+          })} 
         />
       </div>
 
