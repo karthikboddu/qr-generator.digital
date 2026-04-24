@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 
 const SITE_NAME = 'QR Gen';
 const SITE_URL = 'https://qr-generator.digital';
-const DEFAULT_TITLE = 'Free QR Code Generator | Create Custom QR Codes Online';
+const DEFAULT_TITLE = 'AI-Powered QR Marketing Platform | Create Custom QR Codes';
 const DEFAULT_DESCRIPTION =
-  'Generate QR codes for URLs, Wi-Fi, UPI, vCard, social links, and more. Free, fast, and customizable with colors, logos, and instant downloads.';
+  'Create stunning AI-designed QR codes for creators and businesses. Generate beautiful, branded dynamic QR codes with real-time analytics and custom aesthetic templates.';
 const DEFAULT_IMAGE = `${SITE_URL}/web-app-manifest-512x512.png`;
 
 function upsertMeta(selector, attributes) {
@@ -123,8 +123,38 @@ export function useSeo({
     });
     upsertLink('canonical', canonicalUrl);
 
+    const breadcrumbJsonLd = currentPath && currentPath !== '/' ? {
+      '@context': 'https://schema.org',
+      '@type': 'BreadcrumbList',
+      'itemListElement': [
+        {
+          '@type': 'ListItem',
+          'position': 1,
+          'name': 'Home',
+          'item': SITE_URL
+        },
+        {
+          '@type': 'ListItem',
+          'position': 2,
+          'name': title.split(' | ')[0] || title,
+          'item': canonicalUrl
+        }
+      ]
+    } : null;
+
+    const allJsonLd = [];
+    if (breadcrumbJsonLd) allJsonLd.push(breadcrumbJsonLd);
+    
     if (jsonLd) {
-      upsertJsonLd(jsonLd);
+      if (Array.isArray(jsonLd)) {
+        allJsonLd.push(...jsonLd);
+      } else {
+        allJsonLd.push(jsonLd);
+      }
+    }
+
+    if (allJsonLd.length > 0) {
+      upsertJsonLd(allJsonLd);
     } else {
       const existingScripts = document.head.querySelectorAll('script[data-seo-json-ld="true"]');
       existingScripts.forEach((script) => script.remove());

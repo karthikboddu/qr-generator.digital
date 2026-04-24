@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useLocation, useNavigate } from 'react-router-dom';
-import { QrCode, LayoutDashboard, LogOut, User, LogIn, ChevronDown, Newspaper, Sparkles, Package, Zap } from 'lucide-react';
+import { QrCode, LayoutDashboard, LogOut, User, LogIn, ChevronDown, Newspaper, Sparkles, Package, Zap, HelpCircle, Tag, Star } from 'lucide-react';
 import { useAuth } from '../context/AuthContext';
 
 function Header() {
@@ -62,10 +62,13 @@ function Header() {
             {[
               { path: '/', label: 'Generator', icon: QrCode },
               { path: '/generator/dynamic-qr-generator', label: 'Dynamic', icon: Zap },
+              { path: '/features', label: 'Features', icon: Star },
+              { path: '/pricing', label: 'Pricing', icon: Tag },
               { path: '/templates', label: 'Templates', icon: LayoutDashboard },
               { path: '/bulk', label: 'Bulk', icon: Package },
               { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
               { path: '/blog', label: 'Blog', icon: Newspaper },
+              // { path: '/faq', label: 'FAQ', icon: HelpCircle },
             ].map(({ path, label, icon: Icon }) => (
               <Link
                 key={path}
@@ -187,10 +190,13 @@ function Header() {
           {[
             { path: '/', label: 'Generator', icon: QrCode },
             { path: '/generator/dynamic-qr-generator', label: 'Dynamic', icon: Zap },
+            { path: '/features', label: 'Features', icon: Star },
+            { path: '/pricing', label: 'Pricing', icon: Tag },
             { path: '/templates', label: 'Templates', icon: LayoutDashboard },
             { path: '/bulk', label: 'Bulk', icon: Package },
             { path: '/dashboard', label: 'Dashboard', icon: LayoutDashboard },
             { path: '/blog', label: 'Blog', icon: Newspaper },
+            { path: '/faq', label: 'FAQ', icon: HelpCircle },
           ].map(({ path, label, icon: Icon }) => (
             <Link
               key={path}

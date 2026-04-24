@@ -21,6 +21,8 @@ import GeneratorPage from './pages/GeneratorPage';
 import TemplatesMarketplace from './pages/TemplatesMarketplace';
 import InspirationGallery from './pages/InspirationGallery';
 import NotFound from './pages/NotFound';
+import PricingPage from './pages/PricingPage';
+import FeaturesPage from './pages/FeaturesPage';
 import { trackSiteVisit } from './lib/trackSiteVisit';
 import MainLayout from './layouts/MainLayout';
 import Footer from './components/Footer';
@@ -81,6 +83,16 @@ function AppRoutes() {
       <Route path="/privacy-policy" element={
         <PageLayout>
           <PrivacyPolicyPage />
+        </PageLayout>
+      } />
+      <Route path="/pricing" element={
+        <PageLayout>
+          <PricingPage />
+        </PageLayout>
+      } />
+      <Route path="/features" element={
+        <PageLayout>
+          <FeaturesPage />
         </PageLayout>
       } />
       <Route path="/contact" element={
