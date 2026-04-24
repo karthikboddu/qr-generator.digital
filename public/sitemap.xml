@@ -52,6 +52,12 @@
 
   <!-- Blog Posts -->
   <url>
+    <loc>https://qr-generator.digital/blog/introducing-ai-qr-codes-brand-templates</loc>
+    <lastmod>2026-04-24</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
     <loc>https://qr-generator.digital/blog/how-to-use-qr-codes-for-your-business</loc>
     <lastmod>2025-07-26</lastmod>
     <changefreq>yearly</changefreq>
