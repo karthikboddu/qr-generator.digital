@@ -10,6 +10,7 @@ function Register() {
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [error, setError] = useState('');
+  const [successMessage, setSuccessMessage] = useState('');
   const [loading, setLoading] = useState(false);
   const { register } = useAuth();
   const navigate = useNavigate();
@@ -17,6 +18,7 @@ function Register() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     setError('');
+    setSuccessMessage('');
 
     if (password !== confirmPassword) {
       setError('Passwords do not match');
@@ -32,9 +34,13 @@ function Register() {
 
     try {
       await register(name, email, password);
-      navigate('/');
+      setSuccessMessage('Registration successful! Please check your email inbox to verify your account before logging in.');
+      setName('');
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
     } catch (err) {
-      setError('Failed to create account. Please try again.');
+      setError(err.message || 'Failed to create account. Please try again.');
     } finally {
       setLoading(false);
     }
@@ -104,6 +110,18 @@ function Register() {
               }}>
                 <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#f87171' }} />
                 {error}
+              </div>
+            )}
+            
+            {successMessage && (
+              <div style={{ 
+                marginBottom: '24px', padding: '14px 18px', 
+                background: 'rgba(16, 185, 129, 0.1)', border: '1px solid rgba(16, 185, 129, 0.2)',
+                color: '#34d399', borderRadius: '12px', fontSize: '13px',
+                display: 'flex', alignItems: 'center', gap: '10px'
+              }}>
+                <div style={{ width: 6, height: 6, borderRadius: '50%', background: '#34d399', flexShrink: 0 }} />
+                {successMessage}
               </div>
             )}
 
