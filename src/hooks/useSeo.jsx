@@ -2,9 +2,9 @@ import { useEffect } from 'react';
 
 const SITE_NAME = 'QR Gen';
 const SITE_URL = 'https://qr-generator.digital';
-const DEFAULT_TITLE = 'Free QR Code Generator | Create Custom QR Codes Online';
+const DEFAULT_TITLE = 'AI-Powered QR Marketing Platform | Create Custom QR Codes';
 const DEFAULT_DESCRIPTION =
-  'Generate QR codes for URLs, Wi-Fi, UPI, vCard, social links, and more. Free, fast, and customizable with colors, logos, and instant downloads.';
+  'Create stunning AI-designed QR codes for creators and businesses. Generate beautiful, branded dynamic QR codes with real-time analytics and custom aesthetic templates.';
 const DEFAULT_IMAGE = `${SITE_URL}/web-app-manifest-512x512.png`;
 
 function upsertMeta(selector, attributes) {

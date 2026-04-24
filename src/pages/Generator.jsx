@@ -72,11 +72,11 @@ function Generator({ initialContentType = 'url' }) {
   const generatorRoute = TAB_TO_ROUTE[activeTab] || `${activeTab}-qr-generator`;
   const generatorPath = activeTab === 'url' ? '/' : `/generator/${generatorRoute}`;
   const generatorTitle =
-    activeTab === 'url' ? 'QR Gen - Free QR Code Generator' : `${currentQrType.name} QR Code Generator`;
+    activeTab === 'url' ? 'QR Gen - AI-Powered QR Marketing Platform' : `${currentQrType.name} QR Code Generator`;
   const generatorDescription =
     activeTab === 'url'
-      ? 'Create custom static and dynamic QR codes for URLs, Wi-Fi, UPI, menus, social hubs, campaigns, and analytics-driven marketing.'
-      : `Create a ${currentQrType.name} QR code online for free. Customize colors, add a logo, and download your QR code instantly.`;
+      ? 'Create stunning AI-designed QR codes for creators and businesses. Generate beautiful, branded dynamic QR codes with real-time analytics.'
+      : `Create a stunning ${currentQrType.name} QR code online. Customize brand colors, use AI aesthetics, and download instantly.`;
 
   const handleContentTypeSelect = (newContentType) => {
     setContentType(newContentType);
@@ -388,7 +388,7 @@ function Generator({ initialContentType = 'url' }) {
             margin: '0 0 16px',
             letterSpacing: '-0.03em',
           }}>
-            Dynamic QR codes, AI style concepts, and scan analytics.
+            Create stunning AI-designed QR codes.
           </h1>
 
           <p style={{
