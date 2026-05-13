@@ -31,6 +31,7 @@ function Footer() {
       </div>
       <div style={{ display: 'flex', gap: '24px', flexWrap: 'wrap', justifyContent: 'center' }}>
         {[
+          { to: '/wedding-rsvp-qr-code-generator', label: 'Wedding RSVP QR' },
           { to: '/templates', label: 'Templates' },
           { to: '/about', label: 'About' },
           { to: '/faq', label: 'FAQ' },

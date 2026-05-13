@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { supabase } from '../supabaseClient';
 import { useAuth } from '../context/AuthContext';
-import { fetchQRAnalytics, toggleDynamicQR, updateDynamicQRDestination } from '../lib/dynamicQR';
+import { fetchLeadSubmissions, fetchQRAnalytics, toggleDynamicQR, updateDynamicQRDestination } from '../lib/dynamicQR';
 import Seo from '../components/Seo';
 import {
   QrCode, Eye, TrendingUp, Activity, BarChart2, Smartphone, Monitor, Globe,
@@ -283,6 +283,133 @@ function AnalyticsModal({ qr, onClose }) {
   );
 }
 
+/* ======= Lead / RSVP Modal ======= */
+function LeadSubmissionsModal({ qr, onClose }) {
+  const [submissions, setSubmissions] = useState([]);
+  const [loading, setLoading] = useState(true);
+
+  useEffect(() => {
+    const load = async () => {
+      try {
+        const data = await fetchLeadSubmissions(qr.id);
+        setSubmissions(data);
+      } catch (err) {
+        console.error(err);
+      } finally {
+        setLoading(false);
+      }
+    };
+    load();
+  }, [qr.id]);
+
+  const exportCsv = () => {
+    if (submissions.length === 0) return;
+    const keys = Array.from(
+      new Set(submissions.flatMap((entry) => Object.keys(entry.data || {})))
+    );
+    const header = ['submitted_at', ...keys];
+    const lines = submissions.map((entry) => {
+      const row = [
+        new Date(entry.created_at).toISOString(),
+        ...keys.map((key) => {
+          const value = entry.data?.[key] ?? '';
+          return `"${String(value).replace(/"/g, '""')}"`;
+        }),
+      ];
+      return row.join(',');
+    });
+
+    const csv = [header.join(','), ...lines].join('\n');
+    const blob = new Blob([csv], { type: 'text/csv;charset=utf-8' });
+    const url = URL.createObjectURL(blob);
+    const link = document.createElement('a');
+    link.href = url;
+    link.download = `${qr.title.toLowerCase().replace(/\s+/g, '-')}-responses.csv`;
+    link.click();
+    URL.revokeObjectURL(url);
+  };
+
+  return (
+    <div
+      style={{
+        position: 'fixed', inset: 0, zIndex: 999,
+        background: 'rgba(0,0,0,0.8)', backdropFilter: 'blur(8px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '24px',
+      }}
+      onClick={onClose}
+    >
+      <div
+        style={{
+          background: 'var(--bg-card)',
+          border: '1px solid rgba(255,255,255,0.1)',
+          borderRadius: '20px',
+          padding: '32px',
+          maxWidth: '860px',
+          width: '100%',
+          maxHeight: '85vh',
+          overflowY: 'auto',
+          boxShadow: '0 24px 80px rgba(0,0,0,0.6)',
+        }}
+        onClick={(e) => e.stopPropagation()}
+      >
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 12, marginBottom: '24px', flexWrap: 'wrap' }}>
+          <div>
+            <h3 style={{ fontFamily: 'Outfit, sans-serif', fontWeight: 700, fontSize: '18px', color: '#f0f0f8', margin: 0 }}>
+              {qr.title} — Responses
+            </h3>
+            <p style={{ color: 'var(--text-muted)', fontSize: '13px', margin: '4px 0 0' }}>
+              RSVP and lead capture submissions
+            </p>
+          </div>
+          <div style={{ display: 'flex', gap: 8 }}>
+            <button onClick={exportCsv} className="btn-secondary" style={{ padding: '8px 12px', fontSize: 12 }} disabled={submissions.length === 0}>
+              Export CSV
+            </button>
+            <button onClick={onClose} className="btn-ghost" style={{ padding: '8px 12px' }}>
+              <X size={16} />
+            </button>
+          </div>
+        </div>
+
+        {loading ? (
+          <div style={{ textAlign: 'center', padding: '40px' }}>
+            <div style={{ width: 32, height: 32, border: '3px solid rgba(99,102,241,0.3)', borderTopColor: '#6366f1', borderRadius: '50%', animation: 'spin 1s linear infinite', margin: '0 auto' }} />
+          </div>
+        ) : submissions.length === 0 ? (
+          <div style={{ textAlign: 'center', padding: '20px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 16 }}>
+            <p style={{ color: 'var(--text-secondary)', fontSize: 14, margin: 0 }}>
+              No submissions yet. Share the QR code to start collecting RSVPs or leads.
+            </p>
+          </div>
+        ) : (
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
+            {submissions.map((entry) => (
+              <div key={entry.id} style={{ padding: 16, borderRadius: 14, border: '1px solid rgba(255,255,255,0.06)', background: 'rgba(255,255,255,0.03)' }}>
+                <p style={{ color: 'var(--text-muted)', fontSize: 11, margin: '0 0 10px', textTransform: 'uppercase', letterSpacing: '.08em' }}>
+                  Submitted {new Date(entry.created_at).toLocaleString('en-IN')}
+                </p>
+                <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(180px, 1fr))', gap: 10 }}>
+                  {Object.entries(entry.data || {}).map(([key, value]) => (
+                    <div key={key}>
+                      <p style={{ color: 'var(--text-muted)', fontSize: 11, margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '.08em' }}>
+                        {key.replace(/_/g, ' ')}
+                      </p>
+                      <p style={{ color: 'var(--text-primary)', fontSize: 13, margin: 0, lineHeight: 1.6 }}>
+                        {String(value || '—')}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+      </div>
+    </div>
+  );
+}
+
 /* ======= Main Dashboard ======= */
 function Dashboard() {
   const { user } = useAuth();
@@ -294,6 +421,7 @@ function Dashboard() {
   const [activeTab, setActiveTab] = useState('dynamic'); // 'dynamic' | 'static' | 'hubs'
   const [copiedId, setCopiedId] = useState(null);
   const [analyticsModal, setAnalyticsModal] = useState(null); // dynamic QR for analytics
+  const [leadModal, setLeadModal] = useState(null);
 
   useEffect(() => {
     if (!user) return;
@@ -395,6 +523,9 @@ function Dashboard() {
 
       {analyticsModal && (
         <AnalyticsModal qr={analyticsModal} onClose={() => setAnalyticsModal(null)} />
+      )}
+      {leadModal && (
+        <LeadSubmissionsModal qr={leadModal} onClose={() => setLeadModal(null)} />
       )}
 
       <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '32px 24px 80px' }}>
@@ -507,6 +638,9 @@ function Dashboard() {
                               {qr.title}
                             </h3>
                             <span className="badge badge-purple" style={{ fontSize: '10px' }}>{qr.qr_type}</span>
+                            {qr.lead_capture_enabled && (
+                              <span className="badge badge-green" style={{ fontSize: '10px' }}>RSVP / Form</span>
+                            )}
                             {!qr.is_active && (
                               <span style={{ fontSize: '10px', padding: '2px 8px', borderRadius: '99px', background: 'rgba(239,68,68,0.1)', color: '#f87171', border: '1px solid rgba(239,68,68,0.2)' }}>
                                 Paused
@@ -557,6 +691,15 @@ function Dashboard() {
                           >
                             <BarChart2 size={12} /> Analytics
                           </button>
+                          {qr.lead_capture_enabled && (
+                            <button
+                              onClick={() => setLeadModal(qr)}
+                              className="btn-secondary"
+                              style={{ padding: '7px 12px', fontSize: '12px', borderRadius: '8px' }}
+                            >
+                              <User size={12} /> Responses
+                            </button>
+                          )}
                           <button
                             onClick={() => handleToggleDynamic(qr)}
                             className="btn-ghost"

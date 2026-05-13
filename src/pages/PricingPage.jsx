@@ -11,7 +11,7 @@ function PricingPage() {
         description="Simple, transparent pricing for creators and businesses. Start generating dynamic, AI-designed QR codes for free. Upgrade for advanced analytics and features."
         path="/pricing"
       />
-      <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '60px 20px' }}>
+      <div className="grid-bg relative overflow-hidden" style={{ minHeight: '100%', padding: '60px 20px' }}>
         <div className="animate-fadeInUp relative z-10 max-w-5xl mx-auto">
           <div style={{ textAlign: 'center', marginBottom: '56px' }}>
             <div className="badge badge-purple" style={{ marginBottom: '16px' }}>

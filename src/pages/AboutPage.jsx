@@ -11,7 +11,7 @@ function AboutPage() {
         path="/about"
       />
       
-      <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '60px 20px' }}>
+      <div className="grid-bg relative overflow-hidden" style={{ minHeight: '100%', padding: '60px 20px' }}>
         {/* Glow blobs */}
         <div style={{
           position: 'absolute', top: '15%', left: '50%', transform: 'translateX(-50%)',

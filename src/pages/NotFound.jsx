@@ -11,7 +11,7 @@ function NotFound() {
         description="The page you were looking for could not be found."
         robots="noindex,nofollow"
       />
-      <div className="min-h-screen bg-gray-50 flex flex-col items-center justify-center text-center px-4">
+      <div className="bg-gray-50 flex flex-col items-center justify-center text-center px-4" style={{ minHeight: '100%', flex: 1 }}>
         <AlertTriangle className="w-16 h-16 text-yellow-500 mb-4" />
         <h1 className="text-4xl font-bold text-gray-800 mb-2">404 - Page Not Found</h1>
         <p className="text-gray-600 mb-6">Sorry, the page you are looking for does not exist.</p>

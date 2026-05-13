@@ -1,5 +1,107 @@
 export const blogPosts = [
   {
+    slug: 'how-to-create-wedding-rsvp-qr-codes',
+    title: 'How to Create Wedding RSVP QR Codes That Guests Actually Use',
+    author: 'Emma Events',
+    date: 'May 13, 2026',
+    dateIso: '2026-05-13',
+    image: 'https://images.unsplash.com/photo-1520854221256-17451cc331bf?q=80&w=2069',
+    excerpt: 'A practical guide to creating wedding RSVP QR codes that feel elegant on invitations and frictionless for guests to scan and submit.',
+    content: `
+      <p>A wedding RSVP QR code is only useful if guests actually scan it and complete the form. The best-performing wedding QR setups are elegant, easy to understand, and placed with intention on the invitation suite. Here is how to create a wedding RSVP QR code that looks beautiful and gets real responses.</p>
+
+      <h2>1. Use One Clear Call to Action</h2>
+      <p>Guests should never wonder what the QR code does. Add a short label such as <strong>Scan to RSVP</strong>, <strong>Open Wedding Details</strong>, or <strong>Confirm Attendance</strong>. A subtle frame or caption below the code improves conversion significantly.</p>
+
+      <h2>2. Link to an RSVP Flow, Not Just a Homepage</h2>
+      <p>Do not send guests to a generic homepage and expect them to find the RSVP button. The QR code should open a focused flow: RSVP form first, then the wedding website or event schedule. Fewer clicks means more completed confirmations.</p>
+
+      <h2>3. Collect Only the Details You Need</h2>
+      <p>At minimum, collect the guest name, attendance status, and guest count. If needed, add meal preference, email address, and song requests. Avoid long forms unless the wedding website is already a central guest portal.</p>
+
+      <h2>4. Keep the Design Elegant and Scannable</h2>
+      <p>Wedding QR codes should match the stationery, but contrast still matters. Choose a dark foreground on a light background, use enough white space around the code, and test it on multiple phones before printing your invitation batch.</p>
+
+      <h2>5. Use Dynamic QR Codes for Flexibility</h2>
+      <p>If you print invitations months in advance, details may change. A dynamic QR code lets you update the destination later without reprinting. This is perfect for hotel blocks, travel notes, schedule changes, or updated wedding site sections.</p>
+    `,
+  },
+  {
+    slug: 'best-wedding-qr-styles',
+    title: 'Best Wedding QR Styles for Elegant Invitations',
+    author: 'Sarah Design',
+    date: 'May 12, 2026',
+    dateIso: '2026-05-12',
+    image: 'https://images.unsplash.com/photo-1519225421980-715cb0215aed?q=80&w=2070',
+    excerpt: 'Explore the wedding QR styles couples love most, from floral and minimal to luxury gold and vibrant Indian wedding themes.',
+    content: `
+      <p>Wedding QR codes do not need to feel cold or purely technical. When styled well, they become part of the invitation design system. Below are some of the most effective and elegant wedding QR styles to consider.</p>
+
+      <h2>1. Floral RSVP QR</h2>
+      <p>Soft blush, rose, and berry tones pair beautifully with garden and romantic wedding invites. Floral QR styles work especially well for Pinterest-inspired stationery suites.</p>
+
+      <h2>2. Minimal White Wedding QR</h2>
+      <p>Modern couples often prefer a crisp editorial layout. A clean monochrome QR with a small caption like <strong>Scan to RSVP</strong> blends nicely with minimal invitation sets.</p>
+
+      <h2>3. Luxury Gold Wedding QR</h2>
+      <p>For black-tie and luxury celebrations, a warm gold or champagne QR can feel premium while still scanning reliably. Pair it with generous padding and a high-quality paper finish.</p>
+
+      <h2>4. Rustic and Outdoor Wedding QR</h2>
+      <p>Terracotta, cream, and earthy palettes fit well with barn, vineyard, and mountain wedding aesthetics. These styles look especially good on textured cards and natural photography.</p>
+
+      <h2>5. Indian Wedding QR</h2>
+      <p>Indian weddings often involve several events and a broader guest communication need. Jewel tones, festive accents, and multi-event landing pages make QR codes especially useful in this category.</p>
+    `,
+  },
+  {
+    slug: 'digital-rsvp-wedding-guide',
+    title: 'Digital RSVP Wedding Guide: From Invitation to Guest List',
+    author: 'Emma Events',
+    date: 'May 11, 2026',
+    dateIso: '2026-05-11',
+    image: 'https://images.unsplash.com/photo-1511795409834-ef04bbd61622?q=80&w=2070',
+    excerpt: 'A complete digital RSVP wedding guide covering guest collection, response deadlines, meal preferences, and post-scan wedding information.',
+    content: `
+      <p>Digital RSVPs remove the friction of mailed response cards, but the real benefit is operational: cleaner guest tracking, easier updates, and better communication with guests. A wedding QR code is the easiest way to make digital RSVPs feel natural instead of complicated.</p>
+
+      <h2>Set a Clear RSVP Deadline</h2>
+      <p>Your form should clearly state the reply date. This helps guests respond earlier and gives you more time to finalize seating, catering, and transport.</p>
+
+      <h2>Separate the RSVP Step from the Details Page</h2>
+      <p>The best flow is simple: scan, confirm, then continue to wedding details. If guests must hunt through multiple tabs before responding, completion rates drop.</p>
+
+      <h2>Capture Information That Helps Planning</h2>
+      <p>Name, attendance status, guest count, and meal preference are the essentials. If you are planning a destination or multi-day wedding, optional travel notes and contact fields can also be useful.</p>
+
+      <h2>Use the Same QR Across Printed Materials</h2>
+      <p>Once you have a dynamic wedding QR set up, you can place it on the invitation, RSVP insert, wedding website card, and even reminder cards. This keeps your guest journey consistent.</p>
+    `,
+  },
+  {
+    slug: 'elegant-wedding-qr-examples',
+    title: 'Elegant Wedding QR Examples for Invitations, Menus, and Reception Cards',
+    author: 'Sarah Design',
+    date: 'May 10, 2026',
+    dateIso: '2026-05-10',
+    image: 'https://images.unsplash.com/photo-1519741497674-611481863552?q=80&w=2069',
+    excerpt: 'See how elegant wedding QR codes can be used across invitation suites, save-the-date cards, menus, seating notes, and guest photo-sharing prompts.',
+    content: `
+      <p>Couples often think QR codes belong only on RSVP inserts, but elegant wedding QR examples go far beyond that. With the right styling and placement, QR codes can support the entire guest experience from invitation to reception.</p>
+
+      <h2>Invitation Suite QR</h2>
+      <p>Use one primary QR on the invitation or insert card that routes to your RSVP flow and wedding details page. Keep the label short and the visual treatment consistent with the suite.</p>
+
+      <h2>Save The Date QR</h2>
+      <p>A save-the-date QR can link to an announcement page, hotel block details, or a wedding website landing page. This is especially useful when you want to collect early responses or interest.</p>
+
+      <h2>Wedding Menu QR</h2>
+      <p>At the reception, table cards can include a menu QR, dietary notes, signature cocktail descriptions, or family messages. This is a smart addition for large or visually designed wedding dinners.</p>
+
+      <h2>Photo Sharing QR</h2>
+      <p>Place a QR on the reception tables or signage that leads guests to a photo album or upload portal. This helps you collect candid moments from the entire event.</p>
+    `,
+  },
+  {
     slug: 'introducing-ai-qr-codes-brand-templates',
     title: 'Introducing AI-Powered QR Codes and Popular Brand Templates',
     author: 'Product Team',
