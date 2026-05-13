@@ -44,7 +44,7 @@ function BlogPost() {
         image={post.image}
         jsonLd={articleJsonLd}
       />
-      <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '40px 20px' }}>
+      <div className="grid-bg relative overflow-hidden" style={{ minHeight: '100%', padding: '40px 20px' }}>
         <div className="animate-fadeInUp relative z-10 max-w-4xl mx-auto">
           <div className="mb-8">
             <Link to="/blog" className="inline-flex items-center text-indigo-400 font-medium hover:text-indigo-300 transition-colors">

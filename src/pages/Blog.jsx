@@ -31,7 +31,7 @@ function Blog() {
         type="blog"
         jsonLd={blogJsonLd}
       />
-      <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '60px 20px' }}>
+      <div className="grid-bg relative overflow-hidden" style={{ minHeight: '100%', padding: '60px 20px' }}>
         <div className="animate-fadeInUp relative z-10 max-w-7xl mx-auto">
           <div className="mb-12 md:mb-16 text-center">
             <h1 style={{ 

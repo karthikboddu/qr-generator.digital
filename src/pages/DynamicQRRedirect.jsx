@@ -7,7 +7,7 @@ import { detectDevice, incrementDynamicQRScanCount, logScanEvent } from '../lib/
 
 function CenterCard({ icon: Icon = QrCode, title, message, children }) {
   return (
-    <div style={{ minHeight: 'calc(100vh - 64px)', display: 'grid', placeItems: 'center', padding: 24, background: 'var(--bg-primary)' }}>
+    <div style={{ minHeight: '100%', display: 'grid', placeItems: 'center', padding: 24, background: 'var(--bg-primary)', flex: 1 }}>
       <div
         style={{
           width: '100%',
@@ -154,6 +154,33 @@ function DynamicQRRedirect() {
     }
   };
 
+  const renderLeadField = (field, idx) => {
+    const name = field.name || field.label.toLowerCase().replace(/\s+/g, '_');
+    const commonProps = {
+      name,
+      required: field.required,
+      className: 'dark-input',
+      placeholder: field.placeholder,
+    };
+
+    if (field.type === 'textarea') {
+      return <textarea {...commonProps} className="dark-textarea" rows={4} />;
+    }
+
+    if (field.type === 'select') {
+      return (
+        <select {...commonProps} className="dark-select" defaultValue="">
+          <option value="" disabled>{field.placeholder || `Select ${field.label}`}</option>
+          {(field.options || []).map((option) => (
+            <option key={option} value={option}>{option}</option>
+          ))}
+        </select>
+      );
+    }
+
+    return <input {...commonProps} type={field.type || 'text'} />;
+  };
+
   const seoElement = <Seo title="Opening Dynamic QR" description="Redirecting to a dynamic QR code destination." path={`/r/${shortId}`} robots="noindex,nofollow" />;
 
   if (status === 'loading') {
@@ -179,13 +206,7 @@ function DynamicQRRedirect() {
               qr.lead_capture_fields.map((field, idx) => (
                 <div key={idx} style={{ textAlign: 'left' }}>
                   <label className="form-label">{field.label}</label>
-                  <input 
-                    name={field.name || field.label.toLowerCase()} 
-                    type={field.type || 'text'} 
-                    required={field.required}
-                    className="dark-input" 
-                    placeholder={field.placeholder}
-                  />
+                  {renderLeadField(field, idx)}
                 </div>
               ))
             ) : (

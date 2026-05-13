@@ -93,7 +93,7 @@ function InspirationGallery() {
           {
             "@context": "https://schema.org",
             "@type": "ItemList",
-            "itemListElement": inspirationData.map((t, index) => ({
+            "itemListElement": inspirationItems.map((t, index) => ({
               "@type": "ListItem",
               "position": index + 1,
               "name": t.title,
@@ -103,7 +103,7 @@ function InspirationGallery() {
         ]}
       />
       
-      <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '60px 20px' }}>
+      <div className="grid-bg relative overflow-hidden" style={{ minHeight: '100%', padding: '60px 20px' }}>
         <div className="animate-fadeInUp relative z-10 max-w-7xl mx-auto">
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
             <div className="badge badge-purple" style={{ marginBottom: '16px' }}>

@@ -448,14 +448,35 @@ h1, h2, h3, h4, h5, h6 {
   gap: 4px;
   overflow-x: auto;
   -webkit-overflow-scrolling: touch;
-  scrollbar-width: none;
-  padding-bottom: 4px;
+  scrollbar-width: thin;
+  scrollbar-color: rgba(99, 102, 241, 0.3) transparent;
+  padding-bottom: 8px;
   border-bottom: 1px solid var(--border-subtle);
   margin-bottom: 20px;
   width: 100%;
   overscroll-behavior-x: contain;
+  position: relative;
+  mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
+  -webkit-mask-image: linear-gradient(to right, transparent, black 40px, black calc(100% - 40px), transparent);
 }
-.content-type-scroll::-webkit-scrollbar { display: none; }
+
+.content-type-scroll::-webkit-scrollbar {
+  height: 4px;
+  display: block;
+}
+
+.content-type-scroll::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.content-type-scroll::-webkit-scrollbar-thumb {
+  background: rgba(99, 102, 241, 0.2);
+  border-radius: 10px;
+}
+
+.content-type-scroll::-webkit-scrollbar-thumb:hover {
+  background: rgba(99, 102, 241, 0.4);
+}
 
 /* Pulse animation */
 @keyframes pulse-glow {

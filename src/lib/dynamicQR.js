@@ -212,6 +212,20 @@ export async function fetchQRAnalytics(dynamicQrId) {
 }
 
 /**
+ * Fetch lead / RSVP submissions for a dynamic QR.
+ */
+export async function fetchLeadSubmissions(dynamicQrId) {
+  const { data, error } = await supabase
+    .from('lead_submissions')
+    .select('*')
+    .eq('dynamic_qr_id', dynamicQrId)
+    .order('created_at', { ascending: false });
+
+  if (error) throw error;
+  return data || [];
+}
+
+/**
  * Create a Social Hub (Linktree-style page)
  */
 export async function createSocialHub({ userId, title, bio, links, theme = 'dark' }) {

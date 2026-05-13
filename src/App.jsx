@@ -23,15 +23,16 @@ import InspirationGallery from './pages/InspirationGallery';
 import NotFound from './pages/NotFound';
 import PricingPage from './pages/PricingPage';
 import FeaturesPage from './pages/FeaturesPage';
+import WeddingRSVPPage from './pages/WeddingRSVPPage';
 import { trackSiteVisit } from './lib/trackSiteVisit';
 import MainLayout from './layouts/MainLayout';
 import Footer from './components/Footer';
 
-function PageLayout({ children }) {
+function PageLayout({ children, showHeader = true }) {
   return (
     <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column' }}>
-      <Header />
-      <main style={{ flex: 1 }}>
+      {showHeader && <Header />}
+      <main style={{ flex: 1, display: 'flex', flexDirection: 'column' }}>
         {children}
       </main>
       <Footer />
@@ -73,8 +74,16 @@ function AppRoutes() {
           <AboutPage />
         </PageLayout>
       } />
-      <Route path="/r/:shortId" element={<DynamicQRRedirect />} />
-      <Route path="/hub/:shortId" element={<SocialHubPage />} />
+      <Route path="/r/:shortId" element={
+        <PageLayout showHeader={false}>
+          <DynamicQRRedirect />
+        </PageLayout>
+      } />
+      <Route path="/hub/:shortId" element={
+        <PageLayout showHeader={false}>
+          <SocialHubPage />
+        </PageLayout>
+      } />
       <Route path="/faq" element={
         <PageLayout>
           <FaqPage />
@@ -88,6 +97,11 @@ function AppRoutes() {
       <Route path="/pricing" element={
         <PageLayout>
           <PricingPage />
+        </PageLayout>
+      } />
+      <Route path="/wedding-rsvp-qr-code-generator" element={
+        <PageLayout>
+          <WeddingRSVPPage />
         </PageLayout>
       } />
       <Route path="/features" element={

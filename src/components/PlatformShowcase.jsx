@@ -8,6 +8,7 @@ import {
   Download,
   FileText,
   Globe,
+  Heart,
   Instagram,
   Lock,
   MapPin,
@@ -63,6 +64,7 @@ const growthFeatures = [
 ];
 
 const templateCards = [
+  { icon: Heart, label: 'Wedding RSVP QR', to: '/wedding-rsvp-qr-code-generator', color: '#f472b6' },
   { icon: Instagram, label: 'Instagram QR', to: '/generator/instagram-qr-generator', color: '#f472b6' },
   { icon: Wifi, label: 'WiFi QR', to: '/generator/wifi-qr-generator', color: '#22d3ee' },
   { icon: CreditCard, label: 'UPI QR', to: '/generator/upi-qr-generator', color: '#34d399' },

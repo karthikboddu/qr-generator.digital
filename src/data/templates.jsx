@@ -18,6 +18,7 @@ import {
 
 export const templateCategories = [
   { id: 'all', label: 'All Templates' },
+  { id: 'wedding', label: 'Wedding & RSVP' },
   { id: 'social', label: 'Social Media' },
   { id: 'business', label: 'Business & Professional' },
   { id: 'hospitality', label: 'Hospitality & Events' },
@@ -46,11 +47,102 @@ export const templates = [
     shortTitle: 'Wedding QR',
     description: 'Create a beautiful QR code for your wedding. Link to your digital invitation, RSVP form, or photo gallery.',
     seoDescription: 'Make your special day tech-savvy with a wedding QR code. Link to RSVPs, registries, and photo sharing. Elegant and easy for guests.',
-    category: 'hospitality',
+    category: 'wedding',
     icon: Heart,
     features: ['RSVP Integration', 'Photo Gallery Link', 'Elegant Design'],
+    path: '/wedding-rsvp-qr-code-generator',
     defaultValues: {
       contentType: 'event-qr-generator',
+    }
+  },
+  {
+    slug: 'wedding-rsvp-qr-code-template',
+    id: 'dynamic-qr-generator',
+    title: 'Wedding RSVP QR Code Generator',
+    shortTitle: 'Wedding RSVP',
+    description: 'Collect wedding RSVPs with a scan-first QR flow that sends guests through an elegant RSVP form and then to your wedding details.',
+    seoDescription: 'Create a wedding RSVP QR code with elegant templates, digital guest confirmation, and editable wedding links.',
+    category: 'wedding',
+    icon: Heart,
+    features: ['RSVP Form', 'Guest Count', 'Editable Link'],
+    path: '/wedding-rsvp-qr-code-generator',
+    defaultValues: {
+      contentType: 'dynamic-qr-generator',
+    }
+  },
+  {
+    slug: 'floral-wedding-rsvp-qr',
+    id: 'dynamic-qr-generator',
+    title: 'Floral Wedding RSVP QR Template',
+    shortTitle: 'Floral RSVP',
+    description: 'A romantic floral RSVP QR template for blush, garden, and invitation-suite wedding designs.',
+    seoDescription: 'Use a floral wedding RSVP QR template for elegant invitations and digital guest confirmations.',
+    category: 'wedding',
+    icon: Heart,
+    features: ['Floral Style', 'Elegant Palette', 'Invitation Ready'],
+    path: '/wedding-rsvp-qr-code-generator#floral-rsvp',
+    defaultValues: {
+      contentType: 'dynamic-qr-generator',
+    }
+  },
+  {
+    slug: 'luxury-gold-wedding-qr',
+    id: 'dynamic-qr-generator',
+    title: 'Luxury Gold Wedding QR Template',
+    shortTitle: 'Luxury Gold',
+    description: 'A premium gold wedding QR design for black-tie weddings, formal stationery, and luxury invite suites.',
+    seoDescription: 'Create a luxury gold wedding QR code for formal invitations, RSVP cards, and upscale celebration branding.',
+    category: 'wedding',
+    icon: Heart,
+    features: ['Gold Theme', 'Formal Invite', 'Premium Look'],
+    path: '/wedding-rsvp-qr-code-generator#luxury-gold-wedding',
+    defaultValues: {
+      contentType: 'dynamic-qr-generator',
+    }
+  },
+  {
+    slug: 'indian-wedding-qr-template',
+    id: 'dynamic-qr-generator',
+    title: 'Indian Wedding QR Template',
+    shortTitle: 'Indian Wedding',
+    description: 'Built for multi-day Indian weddings, family invitations, mehendi, sangeet, and reception details.',
+    seoDescription: 'Create an Indian wedding QR code for family invites, RSVP flow, and multi-event schedules.',
+    category: 'wedding',
+    icon: Heart,
+    features: ['Multi-event', 'Festive Design', 'Family Friendly'],
+    path: '/wedding-rsvp-qr-code-generator#indian-wedding-qr',
+    defaultValues: {
+      contentType: 'dynamic-qr-generator',
+    }
+  },
+  {
+    slug: 'save-the-date-qr-template',
+    id: 'dynamic-qr-generator',
+    title: 'Save The Date QR Template',
+    shortTitle: 'Save The Date',
+    description: 'Share your save-the-date with a QR that leads to a wedding website, RSVP page, or digital announcement.',
+    seoDescription: 'Create a save-the-date QR code for weddings, engagement announcements, and invitation suites.',
+    category: 'wedding',
+    icon: Heart,
+    features: ['Announcement Ready', 'Wedding Website', 'Shareable'],
+    path: '/wedding-rsvp-qr-code-generator#save-the-date-qr',
+    defaultValues: {
+      contentType: 'dynamic-qr-generator',
+    }
+  },
+  {
+    slug: 'reception-qr-template',
+    id: 'dynamic-qr-generator',
+    title: 'Wedding Reception QR Template',
+    shortTitle: 'Reception QR',
+    description: 'Ideal for reception tables, wedding menus, photo sharing, and playlist requests.',
+    seoDescription: 'Use a wedding reception QR code for menu details, table info, photo albums, and guest experiences.',
+    category: 'wedding',
+    icon: Heart,
+    features: ['Reception Use', 'Guest Experience', 'Menu & Photos'],
+    path: '/wedding-rsvp-qr-code-generator#reception-qr',
+    defaultValues: {
+      contentType: 'dynamic-qr-generator',
     }
   },
   {

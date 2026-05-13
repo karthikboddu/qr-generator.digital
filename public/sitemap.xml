@@ -44,6 +44,12 @@
     <priority>0.80</priority>
   </url>
   <url>
+    <loc>https://qr-generator.digital/wedding-rsvp-qr-code-generator</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.95</priority>
+  </url>
+  <url>
     <loc>https://qr-generator.digital/contact</loc>
     <lastmod>2026-04-23</lastmod>
     <changefreq>monthly</changefreq>
@@ -111,6 +117,30 @@
     <changefreq>monthly</changefreq>
     <priority>0.70</priority>
   </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/how-to-create-wedding-rsvp-qr-codes</loc>
+    <lastmod>2026-05-13</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/best-wedding-qr-styles</loc>
+    <lastmod>2026-05-12</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/digital-rsvp-wedding-guide</loc>
+    <lastmod>2026-05-11</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://qr-generator.digital/blog/elegant-wedding-qr-examples</loc>
+    <lastmod>2026-05-10</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.80</priority>
+  </url>
 
   <!-- Specialized Generator Landing Pages (SEO Templates) -->
   <url>
@@ -121,7 +151,7 @@
   </url>
   <url>
     <loc>https://qr-generator.digital/generator/wedding-qr-code-generator</loc>
-    <lastmod>2026-04-23</lastmod>
+    <lastmod>2026-05-13</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.85</priority>
   </url>
