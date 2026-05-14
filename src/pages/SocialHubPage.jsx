@@ -56,7 +56,7 @@ function SocialHubPage() {
 
   if (loading) {
     return (
-      <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', background: 'var(--bg-primary)', color: 'var(--text-secondary)' }}>
+      <div style={{ minHeight: '100%', display: 'grid', placeItems: 'center', background: 'var(--bg-primary)', color: 'var(--text-secondary)', flex: 1 }}>
         Loading social hub...
       </div>
     );
@@ -66,7 +66,7 @@ function SocialHubPage() {
     return (
       <>
         <Seo title="Social Hub Not Found" description="This QR social hub is unavailable." path={`/hub/${shortId}`} robots="noindex,nofollow" />
-        <div style={{ minHeight: '100vh', display: 'grid', placeItems: 'center', padding: 24, background: 'var(--bg-primary)' }}>
+        <div style={{ minHeight: '100%', display: 'grid', placeItems: 'center', padding: 24, background: 'var(--bg-primary)', flex: 1 }}>
           <div style={{ maxWidth: 420, textAlign: 'center', background: 'var(--bg-card)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 20, padding: 28 }}>
             <Globe size={40} color="#818cf8" style={{ margin: '0 auto 14px', display: 'block' }} />
             <h1 style={{ color: '#f8fafc', fontFamily: 'Outfit, sans-serif', fontWeight: 900, margin: '0 0 8px' }}>Hub unavailable</h1>
@@ -113,7 +113,7 @@ function SocialHubPage() {
           }
         ]}
       />
-      <main style={{ minHeight: '100vh', background, padding: '32px 18px', display: 'grid', placeItems: 'center' }}>
+      <main style={{ minHeight: '100%', background, padding: '32px 18px', display: 'grid', placeItems: 'center', flex: 1 }}>
         <div
           style={{
             width: '100%',
