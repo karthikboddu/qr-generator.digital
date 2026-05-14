@@ -103,7 +103,7 @@ function SharedQR() {
 
   if (loading) {
     return (
-      <div className="grid-bg" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+      <div className="grid-bg" style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', flex: 1 }}>
         <Seo title="Loading..." robots="noindex,nofollow" />
         <div className="text-center">
           <div className="w-12 h-12 border-4 border-indigo-500/30 border-t-indigo-500 rounded-full animate-spin mx-auto mb-4" />
@@ -115,7 +115,7 @@ function SharedQR() {
 
   if (!qrData) {
     return (
-      <div className="grid-bg" style={{ minHeight: '100vh', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px' }}>
+      <div className="grid-bg" style={{ minHeight: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', padding: '20px', flex: 1 }}>
         <Seo title="Not Found" robots="noindex,nofollow" />
         <div className="dark-card" style={{ maxWidth: '400px', width: '100%', textAlign: 'center', padding: '40px 24px' }}>
           <div style={{ width: '64px', height: '64px', background: 'rgba(239, 68, 68, 0.1)', borderRadius: '20px', display: 'flex', alignItems: 'center', justifyContent: 'center', margin: '0 auto 24px' }}>
@@ -130,7 +130,7 @@ function SharedQR() {
   }
 
   return (
-    <div className="grid-bg" style={{ minHeight: '100vh', padding: '80px 20px 40px' }}>
+    <div className="grid-bg" style={{ minHeight: '100%', padding: '80px 20px 40px', flex: 1 }}>
       {seoElement}
       <div style={{ maxWidth: '500px', margin: '0 auto' }} className="animate-fadeInUp">
         <div className="dark-card" style={{ padding: '40px 32px' }}>

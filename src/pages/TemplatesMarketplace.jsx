@@ -43,13 +43,13 @@ function TemplatesMarketplace() {
             "itemListElement": templates.map((t, index) => ({
               "@type": "ListItem",
               "position": index + 1,
-              "url": `https://qr-generator.digital/generator/${t.slug}`
+              "url": `https://qr-generator.digital${t.path || `/generator/${t.slug}`}`
             }))
           }
         ]}
       />
       
-      <div className="grid-bg relative overflow-hidden" style={{ minHeight: 'calc(100vh - 80px)', padding: '60px 20px' }}>
+      <div className="grid-bg relative overflow-hidden" style={{ minHeight: '100%', padding: '60px 20px' }}>
         {/* Hero Section */}
         <div className="animate-fadeInUp relative z-10 max-w-6xl mx-auto">
           <div style={{ textAlign: 'center', marginBottom: '64px' }}>
@@ -114,7 +114,7 @@ function TemplatesMarketplace() {
             {filteredTemplates.map((template, i) => (
               <Link 
                 key={template.slug} 
-                to={`/generator/${template.slug}`}
+                to={template.path || `/generator/${template.slug}`}
                 className="dark-card animate-fadeInUp"
                 style={{ 
                   padding: '32px', 
